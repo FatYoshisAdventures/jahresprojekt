@@ -43,7 +43,7 @@ public class Bullet : MonoBehaviour
 
             if (rb == null) continue;
 
-            rb.AddExplo
+            
         }
     }
 }
