@@ -121,9 +121,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   rb: {fileID: 8753089855298869749}
-  radius: 5
-  explosionradius: 50
-  explosionforce: 4000
+  explosionradius: 42
+  explosionforce: 300
 --- !u!58 &5286895126011111878
 CircleCollider2D:
   m_ObjectHideFlags: 0

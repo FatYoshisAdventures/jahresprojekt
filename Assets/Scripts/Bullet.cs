@@ -12,10 +12,13 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D rb;
 
     [SerializeField]
-    private float explosionradius = 20f;
+    private float explosionradius = 1f;
 
     [SerializeField]
-    private float explosionforce = 200f;
+    private float explosionforce = 100f;
+
+    private bool hit = false;
+    private float delay = 2;
 
     private void Start()
     {
@@ -24,17 +27,28 @@ public class Bullet : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
         if (rb.position.y < -50)
         {
             Destroy(this.gameObject);
+        }
+        if (hit)
+        {
+            Destroy(this.gameObject, delay);
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Explode(collision);
-        //Destroy(this.gameObject);
+        hit = true;
+        if (collision.gameObject.tag == "ground")
+        {
+            delay = 0.3f;
+        }
     }
+
+
 
     private void Explode(Collision2D collision)
     {
@@ -45,8 +59,8 @@ public class Bullet : MonoBehaviour
             Rigidbody2D rb = nearbyObject.GetComponent<Rigidbody2D>();
 
             if (rb == null) continue;
-
-            rb.AddExplosionForce(1000f, new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y), 20f);
+            
+            rb.AddExplosionForce(explosionforce * rb.velocity.magnitude, new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y), explosionradius * rb.velocity.magnitude);
             //Debug.Log($"{collision.gameObject.transform.position.x}, {collision.gameObject.transform.position.y}");
         }
     }

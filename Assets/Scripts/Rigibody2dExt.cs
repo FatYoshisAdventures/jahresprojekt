@@ -21,7 +21,14 @@ public static class Rigidbody2DExt
             explosionDir.y += upwardsModifier;
             explosionDir.Normalize();
         }
+        try
+        {
+            Debug.Log(Mathf.Lerp(0, explosionForce, (1 - explosionDistance)) * explosionDir);
+            rb.AddForce(Mathf.Lerp(0, explosionForce, (1 - explosionDistance)) * explosionDir, mode);
+        }
+        catch (System.Exception)
+        {
 
-        rb.AddForce(Mathf.Lerp(0, explosionForce, (1 - explosionDistance)) * explosionDir, mode);
+        }
     }
 }
