@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CreateTerrain">
+    <Position X="3.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Assets\CreateTerrain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="bullet">
+    <Position X="2" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACiAAAAAEAAAAAAgAAAAAAQAAAAAgAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\bullet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="shoot">
+    <Position X="9" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\shoot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="mousefollow">
+    <Position X="5.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\mouse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="movement">
+    <Position X="7.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAiAAAEAAAAAAAAAAAAAAAQAAQBAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\movement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NetworkCommandLine">
+    <Position X="3.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAEAA=</HashCode>
+      <FileName>Assets\Scripts\NetworkCommandLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="playercam">
+    <Position X="10.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASAAAAAACAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\playercam.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="please">
+    <Position X="2" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAQAAAAAAAAIAAAA=</HashCode>
+      <FileName>Assets\Scripts\please.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
