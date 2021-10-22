@@ -12,7 +12,13 @@ public class bullet : MonoBehaviour
     private Rigidbody2D rb;
 
     [SerializeField]
-    private float radius = 5f;
+    private float explosionradius = 1f;
+
+    [SerializeField]
+    private float explosionforce = 100f;
+
+    private bool hit = false;
+    private float delay = 2;
 
     private void Start()
     {
@@ -25,23 +31,34 @@ public class bullet : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        if (hit)
+        {
+            Destroy(this.gameObject, delay);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(this.gameObject);
+        Explode(collision);
+        hit = true;
+        if (collision.gameObject.tag == "ground")
+        {
+            delay = 0.3f;
+        }
     }
 
-    private void Explode()
+    private void Explode(Collision2D collision)
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius);
-
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionradius);
 
         foreach (Collider2D nearbyObject in colliders)
         {
             Rigidbody2D rb = nearbyObject.GetComponent<Rigidbody2D>();
 
             if (rb == null) continue;
+
+            rb.AddExplosionForce(explosionforce * rb.velocity.magnitude, new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y), explosionradius * rb.velocity.magnitude);
+            //Debug.Log($"{collision.gameObject.transform.position.x}, {collision.gameObject.transform.position.y}");
         }
     }
 }
