@@ -15,13 +15,12 @@ public class TerrainCreator : MonoBehaviour
     private float scale;
     private float distanceBtwnPoints;
 
-    void Start()
+    private void Start()
     {
-
-        shape.spline.SetPosition(0, shape.spline.GetPosition(0) - Vector3.right * 100);
-        shape.spline.SetPosition(1, shape.spline.GetPosition(1) - Vector3.right * 100);
-        shape.spline.SetPosition(2, shape.spline.GetPosition(2) + Vector3.right * 100);
-        shape.spline.SetPosition(3, shape.spline.GetPosition(3) + Vector3.right * 100);
+        shape.spline.SetPosition(0, shape.spline.GetPosition(0) - Vector3.right * 10);
+        shape.spline.SetPosition(1, shape.spline.GetPosition(1) - Vector3.right * 10);
+        shape.spline.SetPosition(2, shape.spline.GetPosition(2) + Vector3.right * 10);
+        shape.spline.SetPosition(3, shape.spline.GetPosition(3) + Vector3.right * 10);
 
         scale = shape.spline.GetPosition(2).x - shape.spline.GetPosition(1).x;
 
