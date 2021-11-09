@@ -53,11 +53,17 @@ public class bullet : MonoBehaviour
 
         foreach (Collider2D nearbyObject in colliders)
         {
-            Rigidbody2D rb = nearbyObject.GetComponent<Rigidbody2D>();
+            Rigidbody2D rb = nearbyObject.gameObject.GetComponent<Rigidbody2D>();
 
-            if (rb == null) continue;
+            if (rb == null)
+            {
+               
+            }
+            else
+            {
+                rb.AddExplosionForce(explosionforce * rb.velocity.magnitude, new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y), explosionradius * rb.velocity.magnitude);
+            }
 
-            rb.AddExplosionForce(explosionforce * rb.velocity.magnitude, new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y), explosionradius * rb.velocity.magnitude);
             //Debug.Log($"{collision.gameObject.transform.position.x}, {collision.gameObject.transform.position.y}");
         }
     }

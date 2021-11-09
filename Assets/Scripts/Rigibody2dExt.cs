@@ -7,6 +7,10 @@ public static class Rigidbody2DExt
     /// </summary>
     public static void AddExplosionForce(this Rigidbody2D rb, float explosionForce, Vector2 explosionPosition, float explosionRadius, float upwardsModifier = 0.0F, ForceMode2D mode = ForceMode2D.Force)
     {
+        if (rb.position == explosionPosition)
+        {
+            return;
+        }
         var explosionDir = rb.position - explosionPosition;
         var explosionDistance = explosionDir.magnitude;
 
@@ -23,7 +27,6 @@ public static class Rigidbody2DExt
         }
         try
         {
-            Debug.Log(Mathf.Lerp(0, explosionForce, (1 - explosionDistance)) * explosionDir);
             rb.AddForce(Mathf.Lerp(0, explosionForce, (1 - explosionDistance)) * explosionDir, mode);
         }
         catch (System.Exception)

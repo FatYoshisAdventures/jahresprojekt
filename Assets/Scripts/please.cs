@@ -14,15 +14,25 @@ public class please : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         //Get the Screen positions of the object
         Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
 
         //Get the Screen position of the mouse
         Vector2 mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
 
+        var rotation = Quaternion.Euler(new Vector3(0f, 0f, AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen)));
+        if (rotation.eulerAngles.z > 360-30)
+        {
+            rotation = Quaternion.Euler(new Vector3(0f, 0f, -30f));
+        }
+        else if (rotation.eulerAngles.z < 360-150)
+        {
+            rotation = Quaternion.Euler(new Vector3(0f, 0f, -150f));
+        }
+        
         //Ta Daaa
-        transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen)));
+        transform.rotation = rotation;
     }
 
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
