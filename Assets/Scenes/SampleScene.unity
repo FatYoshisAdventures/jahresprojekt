@@ -179,6 +179,46 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 1152563963}
+    - target: {fileID: 1322384754856846152, guid: b80afa7e3b39fec42944245d6a62f3e7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.94926834
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322384754856846152, guid: b80afa7e3b39fec42944245d6a62f3e7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322384754856846152, guid: b80afa7e3b39fec42944245d6a62f3e7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322384754856846152, guid: b80afa7e3b39fec42944245d6a62f3e7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.3144674
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322384754856846152, guid: b80afa7e3b39fec42944245d6a62f3e7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -36.657
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322384756135821837, guid: b80afa7e3b39fec42944245d6a62f3e7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322384756135821837, guid: b80afa7e3b39fec42944245d6a62f3e7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322384756135821837, guid: b80afa7e3b39fec42944245d6a62f3e7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322384756135821837, guid: b80afa7e3b39fec42944245d6a62f3e7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322384756135821837, guid: b80afa7e3b39fec42944245d6a62f3e7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1322384756433626969, guid: b80afa7e3b39fec42944245d6a62f3e7, type: 3}
       propertyPath: m_RootOrder
       value: 3

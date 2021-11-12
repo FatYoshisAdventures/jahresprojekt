@@ -20,16 +20,13 @@ public class movement : MonoBehaviour
     void Update()
     {
         h = Input.GetAxis("Horizontal");
-        v = Input.GetAxis("Vertical");
+        //v = Input.GetAxis("Vertical");
+        transform.position += new Vector3(h * speed * Time.deltaTime, v * speed * Time.deltaTime, 0);
         
     }
 
-    void FixedUpdate()
+    private void OnDrawGizmos()
     {
-        //rb2d.AddForce(new Vector2(h * speed, v * speed), ForceMode2D.Impulse);
-        //rb2d.MovePosition(new Vector2(rb2d.position.x + h * speed, rb2d.position.y + v * speed));
-        transform.position += new Vector3(h * speed * Time.deltaTime, v * speed * Time.deltaTime, 0);
-
-        //rb2d.velocity = new Vector2(h * speed, v * speed);
+        //Gizmos.DrawWireSphere(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - gameObject.transform.localScale.y/2, gameObject.transform.position.z), .2f);
     }
 }
