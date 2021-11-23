@@ -8,41 +8,17 @@ public class youdied : MonoBehaviour
     // Start is called before the first frame update
 
     [SerializeField]
-    private Canvas canvas;
+    private Animator death;
+    //[SerializeField]
+    //private Canvas canvas;
     private Rigidbody2D rb;
 
-    private bool dead = false;
-
-    private bool mFaded = true;
-    public float duration = 10f;
+    //public float duration = 10f;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-    }
-
-    public void Fade()
-    {
-        var canvasGroup = canvas.GetComponent<CanvasGroup>();
-
-        StartCoroutine(DoFade(canvasGroup, canvasGroup.alpha, mFaded ? 1 : 0)); 
-
-        mFaded = !mFaded;
-    }
-
-    public IEnumerator DoFade(CanvasGroup canvasGroup, float start, float end)
-    {
-        float counter = 0f;
-
-        while (counter < duration)
-        {
-            counter += Time.deltaTime;
-            canvasGroup.alpha = Mathf.Lerp(start, end, counter / duration);
-
-            yield return null;
-        }
-    }
-
+    }   
 
 
     // Update is called once per frame
@@ -50,12 +26,7 @@ public class youdied : MonoBehaviour
     {
         if (rb.position.y < -60)
         {
-            if (!dead)
-            {
-                Fade();
-            }
-            
-            dead = true;
+            death.SetTrigger("Dead");
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
