@@ -19,9 +19,9 @@ public class shoot : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
 
-            Instantiate(bullet, this.transform.position, this.transform.rotation);
+            GameObject test = Instantiate(bullet, this.transform.position, this.transform.rotation);
             Rigidbody2D rb2d = bullet.GetComponent<Rigidbody2D>();
-            rb2d.AddForce(new Vector2(0, 500));
+            test.GetComponent<Rigidbody2D>().AddForce(transform.right * 10, ForceMode2D.Impulse);
         }
     }
 }
