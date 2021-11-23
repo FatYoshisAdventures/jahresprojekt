@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class please : MonoBehaviour
+public class CannonRotation : MonoBehaviour
 {
     public float speed;
     // Start is called before the first frame update

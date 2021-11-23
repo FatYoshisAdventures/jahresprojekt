@@ -9,11 +9,7 @@ public class youdied : MonoBehaviour
 
     [SerializeField]
     private Animator death;
-    //[SerializeField]
-    //private Canvas canvas;
     private Rigidbody2D rb;
-
-    //public float duration = 10f;
 
     void Start()
     {
@@ -27,11 +23,6 @@ public class youdied : MonoBehaviour
         if (rb.position.y < -60)
         {
             death.SetTrigger("Dead");
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.AddForce(new Vector2(10, 2), ForceMode2D.Impulse);
         }
     }
 }
