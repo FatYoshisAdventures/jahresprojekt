@@ -22,7 +22,7 @@ public class bullet : MonoBehaviour
 
     private void Start()
     {
-        rb.velocity = transform.right * -speed;
+        rb.AddForce(transform.right * speed, ForceMode2D.Impulse);
     }
 
     private void FixedUpdate()

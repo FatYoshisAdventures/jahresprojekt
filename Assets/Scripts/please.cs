@@ -26,24 +26,30 @@ public class please : MonoBehaviour
         Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
 
         //Get the Screen position of the mouse
-        Vector2 mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        Vector2 mouseOnScreen = Camera.main.ScreenToViewportPoint(Input.mousePosition);
 
+        //Normalize rotation between -180 +180
         var angle = player.transform.eulerAngles.z;
-        angle = (angle > 180) ? angle - 360 : angle;
+        if (angle > 180) angle -= 360;
 
         var rotation = AngleBetweenTwoPoints(mouseOnScreen, positionOnScreen);
-        Debug.Log(rotation + angle);
-        
-        if (rotation < minRotation + angle && rotation >= thresholdRotation + angle)
+
+        //Normalize rotation between -180 and +180
+        var newRotation = rotation - angle;
+        if (newRotation > 180) newRotation -= 360;
+        if (newRotation < -180) newRotation += 360;
+
+        //Clamp rotation between min and max rotation
+        if (newRotation < minRotation && newRotation >= thresholdRotation)
         {
             rotation = minRotation + angle;
         }
-        else if (rotation > maxRotation + angle && rotation < thresholdRotation + angle)
+        else if (newRotation > maxRotation && newRotation < thresholdRotation)
         {
             rotation = maxRotation + angle;
         }
 
-        transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, rotation));
+        this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, rotation));
     }
 
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)

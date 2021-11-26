@@ -18,10 +18,7 @@ public class shoot : MonoBehaviour
         //activate on left click
         if (Input.GetMouseButtonDown(0))
         {
-
-            GameObject test = Instantiate(bullet, this.transform.position, this.transform.rotation);
-            Rigidbody2D rb2d = bullet.GetComponent<Rigidbody2D>();
-            test.GetComponent<Rigidbody2D>().AddForce(transform.right * 10, ForceMode2D.Impulse);
+            Instantiate(bullet, this.transform.position, this.transform.rotation);
         }
     }
 }
