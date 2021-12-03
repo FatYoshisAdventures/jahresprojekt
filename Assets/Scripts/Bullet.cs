@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class bullet : MonoBehaviour
 {
 
     [SerializeField]
@@ -22,12 +22,11 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
-        rb.velocity = transform.right * -speed;
+        rb.AddForce(transform.right * speed, ForceMode2D.Impulse);
     }
 
     private void FixedUpdate()
     {
-        
         if (rb.position.y < -50)
         {
             Destroy(this.gameObject);
@@ -48,8 +47,6 @@ public class Bullet : MonoBehaviour
         }
     }
 
-
-
     private void Explode(Collision2D collision)
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionradius);
@@ -59,7 +56,7 @@ public class Bullet : MonoBehaviour
             Rigidbody2D rb = nearbyObject.GetComponent<Rigidbody2D>();
 
             if (rb == null) continue;
-            
+
             rb.AddExplosionForce(explosionforce * rb.velocity.magnitude, new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y), explosionradius * rb.velocity.magnitude);
             //Debug.Log($"{collision.gameObject.transform.position.x}, {collision.gameObject.transform.position.y}");
         }

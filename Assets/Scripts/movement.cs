@@ -16,20 +16,20 @@ public class movement : MonoBehaviour
         rb2d = this.GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        h = Input.GetAxis("Horizontal");
-        v = Input.GetAxis("Vertical");
-        
-    }
-
     void FixedUpdate()
     {
-        //rb2d.AddForce(new Vector2(h * speed, v * speed), ForceMode2D.Impulse);
-        //rb2d.MovePosition(new Vector2(rb2d.position.x + h * speed, rb2d.position.y + v * speed));
+        h = Input.GetAxis("Horizontal");
+        //v = Input.GetAxis("Vertical");
+
         transform.position += new Vector3(h * speed * Time.deltaTime, v * speed * Time.deltaTime, 0);
 
-        //rb2d.velocity = new Vector2(h * speed, v * speed);
+        Vector3 euler = transform.eulerAngles;
+
+        if (euler.z > 180) euler.z = euler.z - 360;
+        {
+            euler.z = Mathf.Clamp(euler.z, -25, 25);
+        }
+
+        transform.eulerAngles = euler;
     }
 }

@@ -6,10 +6,6 @@ public class shoot : MonoBehaviour
 {
     [SerializeField]
     private GameObject bullet;
-
-    [SerializeField]
-    private Transform firePoint;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +18,7 @@ public class shoot : MonoBehaviour
         //activate on left click
         if (Input.GetMouseButtonDown(0))
         {
-
-            Instantiate(bullet, firePoint.position, firePoint.rotation);
+            Instantiate(bullet, this.transform.position, this.transform.rotation);
         }
     }
 }

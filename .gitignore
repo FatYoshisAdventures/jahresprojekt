@@ -35,6 +35,3 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
-Assets/Plugins/GitHub.meta
-Assets/Plugins/GitHub/Editor.meta
-Assets/Plugins/GitHub/Editor/GitHub.Unity.dll.meta

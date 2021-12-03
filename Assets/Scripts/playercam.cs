@@ -20,19 +20,15 @@ public class playercam : MonoBehaviour
 
     private Vector3 Origin;
     private Vector3 Difference;
-    private Vector3 ResetCamera;
 
     private bool drag = false;
 
-
-    private void Start()
-    {
-        ResetCamera = Camera.main.transform.position;
-    }
+    [SerializeField]
+    private GameObject player;
 
     private void LateUpdate()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(2))
         {
             Difference = (Camera.main.ScreenToWorldPoint(Input.mousePosition)) - Camera.main.transform.position;
 
@@ -54,8 +50,8 @@ public class playercam : MonoBehaviour
 
         if (Input.GetMouseButton(1))
         {
-            Camera.main.transform.position = ResetCamera;
+            Camera.main.transform.position = player.transform.position;
+            Camera.main.transform.position += new Vector3(0,0,-10f);
         }
     }
-
 }
