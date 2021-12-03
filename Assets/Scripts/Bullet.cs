@@ -22,7 +22,7 @@ public class bullet : MonoBehaviour
 
     private void Start()
     {
-        rb.AddForce(transform.right * speed, ForceMode2D.Impulse);
+        rb.velocity = transform.right * -speed;
     }
 
     private void FixedUpdate()
@@ -39,25 +39,41 @@ public class bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Explode(collision);
         hit = true;
         if (collision.gameObject.tag == "ground")
         {
             delay = 0.3f;
         }
+        else
+        {
+            Explode(collision);
+        }
     }
 
     private void Explode(Collision2D collision)
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionradius);
+        //todo
+        //spawn explosion point between the two colliding objects
+        //with this both objects can be exploded away instead of only one
+        Vector3 pointbetween = (collision.gameObject.transform.position + this.gameObject.transform.position) / 2;
+        //Instantiate(explosionpoint, pointbetween, Quaternion.Euler(0, 0, 0));
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(pointbetween, explosionradius);
+        pointbetween = new Vector3(0, 0, 0);
 
         foreach (Collider2D nearbyObject in colliders)
         {
-            Rigidbody2D rb = nearbyObject.GetComponent<Rigidbody2D>();
+            Rigidbody2D rb = nearbyObject.gameObject.GetComponent<Rigidbody2D>();
 
-            if (rb == null) continue;
+            if (rb == null)
+            {
 
-            rb.AddExplosionForce(explosionforce * rb.velocity.magnitude, new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y), explosionradius * rb.velocity.magnitude);
+            }
+            else
+            {
+                rb.AddExplosionForce(explosionforce * rb.velocity.magnitude, new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y), explosionradius * rb.velocity.magnitude);
+            }
+
             //Debug.Log($"{collision.gameObject.transform.position.x}, {collision.gameObject.transform.position.y}");
         }
     }

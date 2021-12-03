@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class please : MonoBehaviour
+public class cannonRotation : MonoBehaviour
 {
     [SerializeField]
     private GameObject player;
