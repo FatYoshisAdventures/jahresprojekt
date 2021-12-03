@@ -16,17 +16,20 @@ public class movement : MonoBehaviour
         rb2d = this.GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         h = Input.GetAxis("Horizontal");
         //v = Input.GetAxis("Vertical");
-        transform.position += new Vector3(h * speed * Time.deltaTime, v * speed * Time.deltaTime, 0);
-        
-    }
 
-    private void OnDrawGizmos()
-    {
-        //Gizmos.DrawWireSphere(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - gameObject.transform.localScale.y/2, gameObject.transform.position.z), .2f);
+        transform.position += new Vector3(h * speed * Time.deltaTime, v * speed * Time.deltaTime, 0);
+
+        Vector3 euler = transform.eulerAngles;
+
+        if (euler.z > 180) euler.z = euler.z - 360;
+        {
+            euler.z = Mathf.Clamp(euler.z, -25, 25);
+        }
+
+        transform.eulerAngles = euler;
     }
 }
