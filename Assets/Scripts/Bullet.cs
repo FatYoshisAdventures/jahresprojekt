@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bullet : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
 
     [SerializeField]
@@ -22,7 +22,7 @@ public class bullet : MonoBehaviour
 
     private void Start()
     {
-        rb.velocity = transform.right * -speed;
+        rb.velocity = transform.right * speed;
     }
 
     private void FixedUpdate()

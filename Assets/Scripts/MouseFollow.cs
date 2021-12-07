@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class mousefollow : MonoBehaviour
+public class MouseFollow : MonoBehaviour
 {
     [SerializeField]
     private float speed = 1f;
