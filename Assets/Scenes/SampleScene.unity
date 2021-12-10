@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shape: {fileID: 1760606875}
   numOfPoints: 10
+  deviation: 5
 --- !u!4 &173254425
 Transform:
   m_ObjectHideFlags: 0
@@ -1030,6 +1031,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 4362835533929646781, guid: 9c52b54c94a71b041bf7992e04f7a36c, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4362835533929646782, guid: 9c52b54c94a71b041bf7992e04f7a36c, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4362835533929646782, guid: 9c52b54c94a71b041bf7992e04f7a36c, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4362835533929646783, guid: 9c52b54c94a71b041bf7992e04f7a36c, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -1040,7 +1053,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362835533929646783, guid: 9c52b54c94a71b041bf7992e04f7a36c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 17.73
       objectReference: {fileID: 0}
     - target: {fileID: 4362835533929646783, guid: 9c52b54c94a71b041bf7992e04f7a36c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1074,5 +1087,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4362835534282261004, guid: 9c52b54c94a71b041bf7992e04f7a36c, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 608719425}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c52b54c94a71b041bf7992e04f7a36c, type: 3}

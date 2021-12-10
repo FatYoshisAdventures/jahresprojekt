@@ -12,8 +12,8 @@ public class TerrainCreator : MonoBehaviour
     [SerializeField]
     private int numOfPoints = 10;
 
-    private float scale;
-    private float distanceBtwnPoints;
+    [SerializeField]
+    private float deviation = 2f;
 
     private void Start()
     {
@@ -22,14 +22,14 @@ public class TerrainCreator : MonoBehaviour
         shape.spline.SetPosition(2, shape.spline.GetPosition(2) + Vector3.right * 10);
         shape.spline.SetPosition(3, shape.spline.GetPosition(3) + Vector3.right * 10);
 
-        scale = shape.spline.GetPosition(2).x - shape.spline.GetPosition(1).x;
+        float scale = shape.spline.GetPosition(2).x - shape.spline.GetPosition(1).x;
 
-        distanceBtwnPoints = scale / numOfPoints;
+        float distanceBtwnPoints = scale / numOfPoints;
 
         for (int i = 0; i < numOfPoints-1; i++)
         {
             float xPos = shape.spline.GetPosition(i + 1).x + distanceBtwnPoints;
-            shape.spline.InsertPointAt(i + 2, new Vector3(xPos, Random.Range(0f, 2f)));
+            shape.spline.InsertPointAt(i + 2, new Vector3(xPos, Random.Range(0f, deviation)));
         }
 
         for (int i = 2; i < numOfPoints+1; i++)

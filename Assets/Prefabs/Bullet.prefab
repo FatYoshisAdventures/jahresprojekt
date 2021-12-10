@@ -30,6 +30,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.35, y: -2.22, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -123,6 +124,7 @@ MonoBehaviour:
   rb: {fileID: 6581909171800931782}
   explosionradius: 1
   explosionforce: 100
+  player: {fileID: 4362835533929646781, guid: 9c52b54c94a71b041bf7992e04f7a36c, type: 3}
 --- !u!58 &-4592911133616675963
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -17,13 +17,23 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private float explosionforce = 100f;
 
+    [SerializeField]
+    public GameObject player;
+
     private bool hit = false;
     private float delay = 2;
 
     private void Start()
     {
         rb.velocity = transform.right * speed;
+        player = GameObject.Find("player");
+        
+
+        Physics2D.IgnoreCollision(this.GetComponent<CircleCollider2D>(), player.GetComponentInChildren<PolygonCollider2D>());
     }
+
+    
+
 
     private void FixedUpdate()
     {
@@ -40,6 +50,9 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         hit = true;
+        
+        if (collision.gameObject.tag == "Player") return;
+
         if (collision.gameObject.tag == "ground")
         {
             delay = 0.3f;
@@ -52,6 +65,8 @@ public class Bullet : MonoBehaviour
 
     private void Explode(Collision2D collision)
     {
+        
+
         //todo
         //spawn explosion point between the two colliding objects
         //with this both objects can be exploded away instead of only one
@@ -59,7 +74,6 @@ public class Bullet : MonoBehaviour
         //Instantiate(explosionpoint, pointbetween, Quaternion.Euler(0, 0, 0));
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(pointbetween, explosionradius);
-        pointbetween = new Vector3(0, 0, 0);
 
         foreach (Collider2D nearbyObject in colliders)
         {
@@ -71,7 +85,7 @@ public class Bullet : MonoBehaviour
             }
             else
             {
-                rb.AddExplosionForce(explosionforce * rb.velocity.magnitude, new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y), explosionradius * rb.velocity.magnitude);
+                rb.AddExplosionForce(explosionforce * rb.velocity.magnitude, pointbetween, explosionradius * rb.velocity.magnitude);
             }
 
             //Debug.Log($"{collision.gameObject.transform.position.x}, {collision.gameObject.transform.position.y}");
