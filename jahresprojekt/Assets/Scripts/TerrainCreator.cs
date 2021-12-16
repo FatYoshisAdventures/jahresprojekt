@@ -42,7 +42,7 @@ public class TerrainCreator : MonoBehaviour
         for (int i = 0; i < numOfPoints - 1; i++)
         {
             float xPos = shape.spline.GetPosition(i + 1).x + distanceBtwnPoints;
-            shape.spline.InsertPointAt(i + 2, new Vector3(xPos, deviation * Mathf.PerlinNoise(i * height * Random.Range(0f, 1f), 0)));;
+            shape.spline.InsertPointAt(i + 2, new Vector3(xPos, height + deviation * Mathf.PerlinNoise(i * Random.Range(0f, 1f), 0)));;
         }
 
         for (int i = 2; i < numOfPoints + 1; i++)

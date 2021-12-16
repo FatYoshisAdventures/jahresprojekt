@@ -25,15 +25,13 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
-        rb.velocity = transform.right * speed;
+        float strenght = GameObject.Find("mousewheeltracker").GetComponent<ShootsStrength>().strength;
+        rb.velocity = transform.right * speed * (strenght / 100);
         player = GameObject.Find("player");
-        
+
 
         Physics2D.IgnoreCollision(this.GetComponent<CircleCollider2D>(), player.GetComponentInChildren<PolygonCollider2D>());
     }
-
-    
-
 
     private void FixedUpdate()
     {
@@ -50,7 +48,7 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         hit = true;
-        
+
         if (collision.gameObject.tag == "Player") return;
 
         if (collision.gameObject.tag == "ground")
@@ -65,13 +63,7 @@ public class Bullet : MonoBehaviour
 
     private void Explode(Collision2D collision)
     {
-        
-
-        //todo
-        //spawn explosion point between the two colliding objects
-        //with this both objects can be exploded away instead of only one
         Vector3 pointbetween = (collision.gameObject.transform.position + this.gameObject.transform.position) / 2;
-        //Instantiate(explosionpoint, pointbetween, Quaternion.Euler(0, 0, 0));
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(pointbetween, explosionradius);
 
@@ -87,8 +79,6 @@ public class Bullet : MonoBehaviour
             {
                 rb.AddExplosionForce(explosionforce * rb.velocity.magnitude, pointbetween, explosionradius * rb.velocity.magnitude);
             }
-
-            //Debug.Log($"{collision.gameObject.transform.position.x}, {collision.gameObject.transform.position.y}");
         }
     }
 }

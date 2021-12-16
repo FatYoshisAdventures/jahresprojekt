@@ -4,20 +4,6 @@ using UnityEngine;
 
 public class PlayerCam : MonoBehaviour
 {
-    //public Transform player;
-    //public Vector3 offset = new Vector3(0,5f,-10f);
-
-    //void Update()
-    //{
-    //    transform.position = new Vector3(player.position.x + offset.x, player.position.y + offset.y, -10); // Camera follows the player with specified offset position
-    //}
-
-    //void Start()
-    //{
-    //    //offset = transform.position - player.transform.position;
-    //}
-
-
     private Vector3 Origin;
     private Vector3 Difference;
 
@@ -26,7 +12,37 @@ public class PlayerCam : MonoBehaviour
     [SerializeField]
     private GameObject player;
 
+    [SerializeField] float minZoom = 1f;
+    [SerializeField] float maxZoom = 15f;
+    [SerializeField] float sensitivity= 2f;
+    
+    float zoomLevel;
+
+    private void Start()
+    {
+        zoomLevel = Camera.main.orthographicSize;
+    }
+
     private void LateUpdate()
+    {
+        Zoom();
+
+        Pan();
+
+        ReturnCamera();
+    }
+
+    private void Zoom()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") != 0 && Input.GetKey(KeyCode.LeftControl))
+        {
+            zoomLevel *= 1 + -Input.GetAxis("Mouse ScrollWheel") * sensitivity;
+            zoomLevel = Mathf.Clamp(zoomLevel, minZoom, maxZoom);
+            Camera.main.orthographicSize = zoomLevel;
+        }
+    }
+
+    private void Pan()
     {
         if (Input.GetMouseButton(2))
         {
@@ -45,13 +61,21 @@ public class PlayerCam : MonoBehaviour
 
         if (drag)
         {
-            Camera.main.transform.position = Origin - Difference;
+            var newPoint = Origin - Difference;
+
+            newPoint.x = Mathf.Clamp(newPoint.x, -30, 30);
+            newPoint.y = Mathf.Clamp(newPoint.y, 0, 25);
+
+            Camera.main.transform.position = newPoint;
         }
+    }
+
+    void ReturnCamera()
+    {
 
         if (Input.GetMouseButton(1))
         {
-            Camera.main.transform.position = player.transform.position;
-            Camera.main.transform.position += new Vector3(0,0,-10f);
+            Camera.main.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + 5, -10f);
         }
     }
 }
