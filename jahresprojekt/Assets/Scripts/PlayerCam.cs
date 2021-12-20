@@ -15,7 +15,7 @@ public class PlayerCam : MonoBehaviour
 
     //zoom
     [SerializeField] float minZoom = 1f;
-    [SerializeField] float maxZoom = 15f;
+    [SerializeField] float maxZoom = 10f;
     [SerializeField] float sensitivity = 2f;
 
     //bounds

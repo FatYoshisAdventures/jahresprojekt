@@ -897,7 +897,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 608719425}
   minZoom: 1
-  maxZoom: 15
+  maxZoom: 10
   sensitivity: 2
   boundsLeft: -45
   boundsRight: 45
