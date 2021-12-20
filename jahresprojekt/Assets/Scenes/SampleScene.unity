@@ -899,6 +899,11 @@ MonoBehaviour:
   minZoom: 1
   maxZoom: 15
   sensitivity: 2
+  boundsLeft: -45
+  boundsRight: 45
+  boundsTop: 14
+  boundsBottom: -7
+  offset: 5
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -3790,6 +3795,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4362835534182078152, guid: 9c52b54c94a71b041bf7992e04f7a36c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4362835534182078157, guid: 9c52b54c94a71b041bf7992e04f7a36c, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -3809,6 +3818,10 @@ PrefabInstance:
     - target: {fileID: 4362835535984236892, guid: 9c52b54c94a71b041bf7992e04f7a36c, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4362835535984236895, guid: 9c52b54c94a71b041bf7992e04f7a36c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c52b54c94a71b041bf7992e04f7a36c, type: 3}

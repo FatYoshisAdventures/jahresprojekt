@@ -6,10 +6,8 @@ public class Movement : MonoBehaviour
 {
     // Start is called before the first frame update
     private Rigidbody2D rb;
-    private float h = 0f;
-    private float v = 0f;
-    [SerializeField]
-    private float speed = 10f;
+
+    [SerializeField] private float speed = 10f;
 
     void Start()
     {
@@ -18,17 +16,20 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
-        h = Input.GetAxis("Horizontal");
+        float h = Input.GetAxis("Horizontal");
 
         rb.velocity = new Vector2(h * speed * Time.fixedDeltaTime, rb.velocity.y);
 
-        //Vector3 euler = transform.eulerAngles;
+        if (Input.GetKey(KeyCode.Space))
+        {
+            ResetRotation();
+        }
+    }
 
-        //if (euler.z > 180) euler.z = euler.z - 360;
-        //{
-        //    euler.z = Mathf.Clamp(euler.z, -25, 25);
-        //}
-
-        //transform.eulerAngles = euler;
+    private void ResetRotation()
+    {
+        transform.position = new Vector2(rb.position.x, rb.position.y + 1);
+        transform.eulerAngles = new Vector3(0, 0, 0);
+        rb.velocity = Vector2.zero;
     }
 }
