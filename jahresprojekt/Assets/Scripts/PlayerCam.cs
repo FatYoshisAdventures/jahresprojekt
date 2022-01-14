@@ -26,12 +26,14 @@ public class PlayerCam : MonoBehaviour
 
     //offset of camera above player
     [SerializeField] float offset = 5f;
-    
+
+    Camera main;
     float zoomLevel;
 
     private void Start()
     {
-        zoomLevel = Camera.main.orthographicSize;
+        main = this.gameObject.GetComponent<Camera>();
+        zoomLevel = main.orthographicSize;
     }
 
     private void LateUpdate()
@@ -50,9 +52,10 @@ public class PlayerCam : MonoBehaviour
         var newPoint = transform.position;
 
         //half the height of the camera box
-        float height = Camera.main.orthographicSize;
+        float height = main.orthographicSize;
+
         //half the width of the camera box
-        float width = height * Camera.main.aspect;
+        float width = height * main.aspect;
 
         //restrict camera position between left and right boundaries
         if (newPoint.x - width < boundsLeft)
@@ -74,7 +77,7 @@ public class PlayerCam : MonoBehaviour
             newPoint.y = Mathf.Clamp(newPoint.y + height, boundsBottom + height , boundsTop - height);
         }
 
-        Camera.main.transform.position = newPoint;
+        main.transform.position = newPoint;
     }
 
     private void Zoom()
@@ -87,7 +90,7 @@ public class PlayerCam : MonoBehaviour
 
             //clamp zoom level between min and max zoom
             zoomLevel = Mathf.Clamp(zoomLevel, minZoom, maxZoom);
-            Camera.main.orthographicSize = zoomLevel;
+            main.orthographicSize = zoomLevel;
         }
     }
 
@@ -96,7 +99,7 @@ public class PlayerCam : MonoBehaviour
         //let the player drag the camera if he holds middle mouse button
         if (Input.GetMouseButton(2))
         {
-            Difference = (Camera.main.ScreenToWorldPoint(Input.mousePosition)) - Camera.main.transform.position;
+            Difference = (main.ScreenToWorldPoint(Input.mousePosition)) - main.transform.position;
 
             //initial click on middle mouse button
             if (drag == false)
@@ -104,7 +107,7 @@ public class PlayerCam : MonoBehaviour
                 //set drag to true, keeps it true while the player holds the button
                 drag = true;
 
-                Origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Origin = main.ScreenToWorldPoint(Input.mousePosition);
             }
         }
         else
@@ -114,7 +117,7 @@ public class PlayerCam : MonoBehaviour
 
         if (drag)
         {
-            Camera.main.transform.position = Origin - Difference;
+            main.transform.position = Origin - Difference;
         }
     }
 
@@ -124,7 +127,7 @@ public class PlayerCam : MonoBehaviour
         //add offset to position so camera is above player
         if (Input.GetMouseButton(1))
         {
-            Camera.main.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + offset, -10f);
+            main.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + offset * (main.orthographicSize / maxZoom), -10f);
         }
     }
 }

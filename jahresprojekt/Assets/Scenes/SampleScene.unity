@@ -722,7 +722,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 415985431}
-  - component: {fileID: 415985433}
   - component: {fileID: 415985432}
   m_Layer: 9
   m_Name: mousewheeltracker
@@ -760,18 +759,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   strength: 50
   sensitivity: 10
---- !u!114 &415985433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 415985430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2e8e6f2e3acd144494a2a178b32e4ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &470214796
 GameObject:
   m_ObjectHideFlags: 0
@@ -3723,6 +3710,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 552813241395931449, guid: 9c52b54c94a71b041bf7992e04f7a36c, type: 3}
+      propertyPath: main
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 4362835533929646772, guid: 9c52b54c94a71b041bf7992e04f7a36c, type: 3}
       propertyPath: death
       value: 

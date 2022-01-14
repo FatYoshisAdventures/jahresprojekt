@@ -8,6 +8,9 @@ public class CannonRotation : MonoBehaviour
     private GameObject player;
 
     [SerializeField]
+    private Camera main;
+
+    [SerializeField]
     private float minRotation = -10;
 
     [SerializeField]
@@ -23,10 +26,10 @@ public class CannonRotation : MonoBehaviour
     void Update()
     {
         //Get the Screen positions of the object
-        Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
+        Vector2 positionOnScreen = main.WorldToViewportPoint(transform.position);
 
         //Get the Screen position of the mouse
-        Vector2 mouseOnScreen = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        Vector2 mouseOnScreen = main.ScreenToViewportPoint(Input.mousePosition);
 
         //Normalize rotation between -180 +180
         var angle = player.transform.eulerAngles.z;
@@ -56,6 +59,7 @@ public class CannonRotation : MonoBehaviour
     {
         //Get the angle between the points
         return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
+        
     }
 }
 
