@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +21,6 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     public GameObject player;
 
-    private bool hit = false;
     private float delay = 2;
 
     private void Start()
@@ -39,26 +39,31 @@ public class Bullet : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        if (hit)
-        {
-            Destroy(this.gameObject, delay);
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        hit = true;
-
         if (collision.gameObject.tag == "Player") return;
 
         if (collision.gameObject.tag == "ground")
         {
-            delay = 0.3f;
+            Destroy(this.gameObject, 0.3f);
         }
         else
         {
+            DoDamage(collision);
             Explode(collision);
         }
+    }
+
+    private void DoDamage(Collision2D collision)
+    {
+        try
+        {
+            collision.gameObject.GetComponent<Health>().health--;
+        }
+        catch (Exception) { } //no health object found on hit object
+        Destroy(this.gameObject, delay);
     }
 
     private void Explode(Collision2D collision)

@@ -30,6 +30,7 @@ public class Movement : MonoBehaviour
     {
         transform.position = new Vector2(rb.position.x, rb.position.y + 1);
         transform.eulerAngles = new Vector3(0, 0, 0);
+        rb.angularVelocity = 0f;
         rb.velocity = Vector2.zero;
     }
 }
