@@ -23,6 +23,8 @@ public class Bullet : MonoBehaviour
 
     private float delay = 2;
 
+    List<GameObject> collidedWith = new List<GameObject>();
+
     private void Start()
     {
         float strenght = GameObject.Find("mousewheeltracker").GetComponent<ShootsStrength>().strength;
@@ -45,9 +47,13 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player") return;
 
+        if (collidedWith.Contains(collision.gameObject)) return;
+
+        collidedWith.Add(collision.gameObject);
+
         if (collision.gameObject.tag == "ground")
         {
-            Destroy(this.gameObject, 0.3f);
+            Destroy(this.gameObject, 1f);
         }
         else
         {
