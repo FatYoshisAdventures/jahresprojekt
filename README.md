@@ -1,4 +1,4 @@
-# jahresprojekt
+# read-me
 
 Pflichtenheft befindet sich in /!Schule/Pflichtenheft.pdf
 
