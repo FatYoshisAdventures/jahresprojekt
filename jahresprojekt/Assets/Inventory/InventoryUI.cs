@@ -6,7 +6,7 @@ public class InventoryUI : MonoBehaviour
 
     InventorySlot[] slots;
 
-    public void Start()
+    void Start()
     {
         inventory.onItemChangedCallback += UpdateUI;
 
@@ -15,7 +15,7 @@ public class InventoryUI : MonoBehaviour
         UpdateUI();
     }
 
-    private void UpdateUI()
+    void UpdateUI()
     {
         for (int i = 0; i < slots.Length; i++)
         {

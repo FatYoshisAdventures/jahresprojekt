@@ -1,30 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CannonRotation : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject player;
+    [SerializeField] GameObject player;
+    [SerializeField] Camera main;
 
-    [SerializeField]
-    private Camera main;
+    [SerializeField] float minRotation = -10;
+    [SerializeField] float maxRotation = -170;
 
-    [SerializeField]
-    private float minRotation = -10;
+    float thresholdRotation;
 
-    [SerializeField]
-    private float maxRotation = -170;
-
-    private float thresholdRotation;
-
-    private void Start()
+    void Start()
     {
         thresholdRotation = (minRotation + maxRotation) / 2;
     }
 
     void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+
         //Get the Screen positions of the object
         Vector2 positionOnScreen = main.WorldToViewportPoint(transform.position);
 

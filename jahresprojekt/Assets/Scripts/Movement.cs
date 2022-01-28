@@ -5,7 +5,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     // Start is called before the first frame update
-    private Rigidbody2D rb;
+    Rigidbody2D rb;
 
     [SerializeField] private float speed = 10f;
 
@@ -26,7 +26,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    private void ResetRotation()
+    void ResetRotation()
     {
         transform.position = new Vector2(rb.position.x, rb.position.y + 1);
         transform.eulerAngles = new Vector3(0, 0, 0);

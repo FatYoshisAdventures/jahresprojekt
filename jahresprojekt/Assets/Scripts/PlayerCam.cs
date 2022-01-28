@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class PlayerCam : MonoBehaviour
 {
-    private Vector3 Origin;
-    private Vector3 Difference;
+    Vector3 Origin;
+    Vector3 Difference;
 
-    private bool drag = false;
+    bool drag = false;
 
-    [SerializeField]
-    private GameObject player;
+    [SerializeField] GameObject player;
 
     //zoom
     [SerializeField] float minZoom = 1f;
@@ -30,13 +29,13 @@ public class PlayerCam : MonoBehaviour
     Camera main;
     float zoomLevel;
 
-    private void Start()
+    void Start()
     {
         main = this.gameObject.GetComponent<Camera>();
         zoomLevel = main.orthographicSize;
     }
 
-    private void LateUpdate()
+    void LateUpdate()
     {
         Zoom();
 
@@ -47,7 +46,7 @@ public class PlayerCam : MonoBehaviour
         RestrictCameraPosition();
     }
 
-    private void RestrictCameraPosition()
+    void RestrictCameraPosition()
     {
         var newPoint = transform.position;
 
@@ -80,7 +79,7 @@ public class PlayerCam : MonoBehaviour
         main.transform.position = newPoint;
     }
 
-    private void Zoom()
+    void Zoom()
     {
         //zoom on mouse scroll
         if (Input.GetAxis("Mouse ScrollWheel") != 0 && Input.GetKey(KeyCode.LeftControl))
@@ -94,7 +93,7 @@ public class PlayerCam : MonoBehaviour
         }
     }
 
-    private void Pan()
+    void Pan()
     {
         //let the player drag the camera if he holds middle mouse button
         if (Input.GetMouseButton(2))

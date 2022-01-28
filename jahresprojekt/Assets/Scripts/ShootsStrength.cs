@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShootsStrength : MonoBehaviour
 {
-    [SerializeField] public float strength = 50f;
+    public float strength = 50f;
 
     [SerializeField] float sensitivity = 10f;
 

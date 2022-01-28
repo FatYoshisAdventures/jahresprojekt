@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class MouseFollow : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = 1f;
-    // Start is called before the first frame update
-    void Start()
-    {
+    [SerializeField] float speed = 1f;
 
-    }
-
-    // Update is called once per frame
     void Update()
     {
         Vector3 mouse = Input.mousePosition;

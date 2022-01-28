@@ -5,33 +5,26 @@ using UnityEngine.U2D;
 
 public class TerrainCreator : MonoBehaviour
 {
+    [SerializeField] SpriteShapeController shape;
 
-    [SerializeField]
-    private SpriteShapeController shape;
+    [SerializeField] int numOfPoints = 30;
 
-    [SerializeField]
-    private int numOfPoints = 30;
+    [SerializeField] float height = 5f;
 
-    [SerializeField]
-    private float height = 5f;
+    [SerializeField] float deviation = 5f;
 
-    [SerializeField]
-    private float deviation = 5f;
+    [SerializeField] float mapSize = 30;
 
-    [SerializeField]
-    private float mapSize = 30;
+    [SerializeField] float roundness = 2f;
 
-    [SerializeField]
-    private float roundness = 2f;
-
-    private void Start()
+    void Start()
     {
         ChangeMapSize();
 
         GenerateTerrain();
     }
 
-    private void GenerateTerrain()
+    void GenerateTerrain()
     {
         // calculate exact horizontal size of map
         float scale = shape.spline.GetPosition(2).x - shape.spline.GetPosition(1).x;

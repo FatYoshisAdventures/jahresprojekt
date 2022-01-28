@@ -6,26 +6,21 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 
-    [SerializeField]
-    private float speed = 5f;
+    [SerializeField] float speed = 5f;
 
-    [SerializeField]
-    private Rigidbody2D rb;
+    [SerializeField] Rigidbody2D rb;
 
-    [SerializeField]
-    private float explosionradius = 1f;
+    [SerializeField] float explosionradius = 1f;
 
-    [SerializeField]
-    private float explosionforce = 100f;
+    [SerializeField] float explosionforce = 100f;
 
-    [SerializeField]
     public GameObject player;
 
     private float delay = 2;
 
     List<GameObject> collidedWith = new List<GameObject>();
 
-    private void Start()
+    void Start()
     {
         float strenght = GameObject.Find("mousewheeltracker").GetComponent<ShootsStrength>().strength;
         rb.velocity = transform.right * speed * (strenght / 100);
@@ -35,7 +30,7 @@ public class Bullet : MonoBehaviour
         Physics2D.IgnoreCollision(this.GetComponent<CircleCollider2D>(), player.GetComponentInChildren<PolygonCollider2D>());
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (rb.position.y < -50)
         {
@@ -43,7 +38,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player") return;
 
@@ -62,7 +57,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void DoDamage(Collision2D collision)
+    void DoDamage(Collision2D collision)
     {
         try
         {
@@ -72,7 +67,7 @@ public class Bullet : MonoBehaviour
         Destroy(this.gameObject, delay);
     }
 
-    private void Explode(Collision2D collision)
+    void Explode(Collision2D collision)
     {
         Vector3 pointbetween = (collision.gameObject.transform.position + this.gameObject.transform.position) / 2;
 

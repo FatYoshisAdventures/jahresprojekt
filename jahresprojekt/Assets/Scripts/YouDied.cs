@@ -7,22 +7,22 @@ public class YouDied : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [SerializeField]
-    private Animator death;
-    private Rigidbody2D rb;
+    [SerializeField] Canvas canvas;
+
+    Rigidbody2D rb;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        canvas.enabled = false;
     }   
 
-
-    // Update is called once per frame
     void Update()
     {
         if (rb.position.y < -60)
         {
-            death.SetTrigger("Dead");
+            canvas.enabled = true;
+            canvas.GetComponent<Animator>().SetTrigger("Dead");
         }
     }
 }

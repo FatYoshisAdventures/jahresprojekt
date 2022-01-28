@@ -6,8 +6,8 @@ public class Health : MonoBehaviour
 {
     public int maxhealth = 3;
 
-    [SerializeField]
-    private int _Health = 0;
+    [SerializeField] int _Health = 0;
+
     [HideInInspector]
     public int health 
     {
@@ -32,7 +32,6 @@ public class Health : MonoBehaviour
 
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         health = maxhealth;
