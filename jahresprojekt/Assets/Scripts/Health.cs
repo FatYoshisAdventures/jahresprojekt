@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    [SerializeField] private bool RegenerateOnMaxHealthIncrease;
     public int maxhealth = 3;
 
     [SerializeField] int _Health = 0;
@@ -35,5 +36,29 @@ public class Health : MonoBehaviour
     void Start()
     {
         health = maxhealth;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <returns>returns false if health is already full</returns>
+    public bool RegenerateHealth(int amount)
+    {
+        if (health != maxhealth)
+        {
+            health += amount;
+            return true;
+        }
+        return false;
+    }
+
+    public void IncreaseMaxHealth(int increaseamount)
+    {
+        maxhealth += increaseamount;
+        if (RegenerateOnMaxHealthIncrease == true)
+        {
+            health += increaseamount;
+        }
     }
 }
