@@ -5130,7 +5130,7 @@ GameObject:
   - component: {fileID: 2109347560}
   - component: {fileID: 2109347561}
   - component: {fileID: 2109347562}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RegeneratingArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -18,8 +18,8 @@ TagManager:
   - middleground
   - player
   - foreground
-  - 
-  - 
+  - HealthArea
+  - Bullet
   - 
   - 
   - 

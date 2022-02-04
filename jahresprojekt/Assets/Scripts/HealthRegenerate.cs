@@ -17,6 +17,7 @@ public class HealthRegenerate : MonoBehaviour
     void Awake()
     {
         CheckIsAreaChanged();
+        Physics2D.IgnoreLayerCollision(11, 12);
     }
 
     void CheckIsAreaChanged()
@@ -77,9 +78,11 @@ public class HealthRegenerate : MonoBehaviour
     {
         if (isArea == false)
         {
-            //don't care if player has full health or not
-            collision.collider.gameObject.GetComponentInParent<Health>().RegenerateHealth(MaxRegenerationAmount);
-            GameObject.Destroy(this.gameObject, 0);
+            if (gameObject.tag == "Player")
+            {
+                collision.collider.gameObject.GetComponentInParent<Health>().RegenerateHealth(MaxRegenerationAmount);
+                GameObject.Destroy(this.gameObject, 0);
+            }
         }
     }
 
