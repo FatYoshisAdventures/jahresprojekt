@@ -171,6 +171,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 726799922}
     m_Modifications:
+    - target: {fileID: 1935658967080147833, guid: 7515fb18569c7b44abe066fa56dc5919, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1935658967080147836, guid: 7515fb18569c7b44abe066fa56dc5919, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -445,6 +449,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 726799922}
     m_Modifications:
+    - target: {fileID: 1935658967080147833, guid: 7515fb18569c7b44abe066fa56dc5919, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1935658967080147836, guid: 7515fb18569c7b44abe066fa56dc5919, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1303,6 +1311,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 726799922}
     m_Modifications:
+    - target: {fileID: 1935658967080147833, guid: 7515fb18569c7b44abe066fa56dc5919, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1935658967080147836, guid: 7515fb18569c7b44abe066fa56dc5919, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3475,6 +3487,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 726799922}
     m_Modifications:
+    - target: {fileID: 1935658967080147833, guid: 7515fb18569c7b44abe066fa56dc5919, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1935658967080147836, guid: 7515fb18569c7b44abe066fa56dc5919, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3891,6 +3907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IncreaseAmount: 3
+  RegenerateHealth: 1
 --- !u!58 &1590054161
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5029,6 +5046,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 726799922}
     m_Modifications:
+    - target: {fileID: 1935658967080147833, guid: 7515fb18569c7b44abe066fa56dc5919, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1935658967080147836, guid: 7515fb18569c7b44abe066fa56dc5919, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5164,13 +5185,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db89aca3ad3848f42a7a2362324732c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isArea: 0
+  isArea: 1
   SizeX: 5
   SizeY: 20
-  MaxRegenerationAmount: 0
-  RegAmountPerRegeneration: 0
-  HasCooldown: 0
-  HealthRegCooldown: 0
+  MaxRegenerationAmount: 20
+  RegAmountPerRegeneration: 1
+  HasCooldown: 1
+  HealthRegCooldown: 5
 --- !u!61 &2109347562
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5204,6 +5225,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 726799922}
     m_Modifications:
+    - target: {fileID: 1935658967080147833, guid: 7515fb18569c7b44abe066fa56dc5919, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1935658967080147836, guid: 7515fb18569c7b44abe066fa56dc5919, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5347,7 +5372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362835533929646783, guid: 9c52b54c94a71b041bf7992e04f7a36c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.46
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4362835533929646783, guid: 9c52b54c94a71b041bf7992e04f7a36c, type: 3}
       propertyPath: m_LocalPosition.z

@@ -78,7 +78,7 @@ public class HealthRegenerate : MonoBehaviour
     {
         if (isArea == false)
         {
-            if (gameObject.tag == "Player")
+            if (collision.collider.gameObject.tag == "Player")
             {
                 collision.collider.gameObject.GetComponentInParent<Health>().RegenerateHealth(MaxRegenerationAmount);
                 GameObject.Destroy(this.gameObject, 0);
