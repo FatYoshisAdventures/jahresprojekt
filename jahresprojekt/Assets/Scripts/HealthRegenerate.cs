@@ -15,9 +15,7 @@ public class HealthRegenerate : MonoBehaviour
     private bool HealthRegOnCooldown = false;
     
     void Awake()
-    {
-        CheckIsAreaChanged();
-        Physics2D.IgnoreLayerCollision(11, 12);
+    {CheckIsAreaChanged();
     }
 
     void CheckIsAreaChanged()
@@ -25,11 +23,11 @@ public class HealthRegenerate : MonoBehaviour
         Collider2D collider = this.gameObject.GetComponent<Collider2D>();
         if (isArea == false)
         {
-            collider.enabled = true;
+            collider.isTrigger = false;
         }
         else
         {
-            collider.enabled = false;
+            collider.isTrigger = true;
         }
     }
 
@@ -37,39 +35,41 @@ public class HealthRegenerate : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(transform.position, new Vector3(SizeX, SizeY, 0));
+        
+        //maybe useful
+        GUIStyle style = new();
+        int fontSize = 24;
+        style.fontSize = Mathf.Min(Mathf.FloorToInt(Screen.width * fontSize / 1000), Mathf.FloorToInt(Screen.height * fontSize / 1000));
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         CheckIsAreaChanged();
-        if (isArea)
-        {
-            if (HealthRegOnCooldown == false)
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (HealthRegOnCooldown == false)
+        {              
+            if (collision.gameObject.CompareTag("Player"))
             {
-                RaycastHit2D[] hits = Physics2D.BoxCastAll(this.transform.position, new Vector2(SizeX, SizeY), 0, new Vector2(0f,0f));
-                foreach (var hit in hits)
+                if (collision.gameObject.GetComponentInParent<Health>().RegenerateHealth(RegAmountPerRegeneration) == true)
                 {
-                    if (hit.collider.gameObject.tag == "Player")
+                    MaxRegenerationAmount -= RegAmountPerRegeneration;
+                    if (MaxRegenerationAmount <= 0)
                     {
-                        if (hit.collider.gameObject.GetComponentInParent<Health>().RegenerateHealth(RegAmountPerRegeneration) == true)
+                        GameObject.Destroy(this.gameObject, 0);
+                    }
+                    else
+                    {
+                        if (HasCooldown == true)
                         {
-                            MaxRegenerationAmount -= RegAmountPerRegeneration;
-                            if (MaxRegenerationAmount <= 0)
-                            {
-                                GameObject.Destroy(this.gameObject, 0);
-                            }
-                            else
-                            {
-                                if (HasCooldown == true)
-                                {
-                                    StartCoroutine(HealthRegCooldownRoutine());
-                                }
-                            }
+                            StartCoroutine(HealthRegCooldownRoutine());
                         }
-                        else { /*player already full or error*/ }
                     }
                 }
+                else { /*player already full or error*/ }
             }
         }
     }
@@ -78,9 +78,9 @@ public class HealthRegenerate : MonoBehaviour
     {
         if (isArea == false)
         {
-            if (collision.collider.gameObject.tag == "Player")
+            if (collision.gameObject.CompareTag("Player"))
             {
-                collision.collider.gameObject.GetComponentInParent<Health>().RegenerateHealth(MaxRegenerationAmount);
+                collision.gameObject.GetComponentInParent<Health>().RegenerateHealth(MaxRegenerationAmount);
                 GameObject.Destroy(this.gameObject, 0);
             }
         }
