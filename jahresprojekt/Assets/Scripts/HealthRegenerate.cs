@@ -13,14 +13,19 @@ public class HealthRegenerate : MonoBehaviour
     [SerializeField] private float HealthRegCooldown;
 
     private bool HealthRegOnCooldown = false;
-    
+    private BoxCollider2D collider;
+
+    [SerializeField] private bool DrawGizmo;
+
     void Awake()
-    {CheckIsAreaChanged();
+    {
+        collider = this.gameObject.GetComponent<BoxCollider2D>();
+        CheckIsAreaChanged();
     }
 
     void CheckIsAreaChanged()
     {
-        Collider2D collider = this.gameObject.GetComponent<Collider2D>();
+        
         if (isArea == false)
         {
             collider.isTrigger = false;
@@ -29,17 +34,21 @@ public class HealthRegenerate : MonoBehaviour
         {
             collider.isTrigger = true;
         }
+        collider.size = new Vector2(SizeX, SizeY);
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(transform.position, new Vector3(SizeX, SizeY, 0));
+        if (DrawGizmo)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireCube(transform.position, new Vector3(SizeX, SizeY, 0));
         
-        //maybe useful
-        GUIStyle style = new();
-        int fontSize = 24;
-        style.fontSize = Mathf.Min(Mathf.FloorToInt(Screen.width * fontSize / 1000), Mathf.FloorToInt(Screen.height * fontSize / 1000));
+            //maybe useful
+            GUIStyle style = new();
+            int fontSize = 24;
+            style.fontSize = Mathf.Min(Mathf.FloorToInt(Screen.width * fontSize / 1000), Mathf.FloorToInt(Screen.height * fontSize / 1000));
+        }
     }
 
     // Update is called once per frame
