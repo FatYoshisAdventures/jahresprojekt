@@ -16,9 +16,27 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
-        float h = Input.GetAxis("Horizontal");
+        float h = Input.GetAxisRaw("Horizontal");
 
-        rb.velocity = new Vector2(h * speed * Time.fixedDeltaTime, rb.velocity.y);
+        #region movement test with clamping
+        if (h == 0)
+        {
+            //stands still, should be moving only through external influences
+            rb.velocity = new Vector2(rb.velocity.x + h * speed * Time.fixedDeltaTime, rb.velocity.y);
+        }
+        else if (h > 0.1)
+        {
+            //moves to the right
+            rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x + h * speed * Time.fixedDeltaTime, 0, 2), rb.velocity.y);
+        }
+        else if (h < -0.1)
+        {
+            //moves to the left
+            rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x + h * speed * Time.fixedDeltaTime, -2, 0), rb.velocity.y);
+        }
+        #endregion
+        //rb.AddForce(new Vector2(h * speed * Time.fixedDeltaTime,0), ForceMode2D.Impulse);
+        //rb.velocity = new Vector2(rb.velocity.x + h * speed * Time.fixedDeltaTime, rb.velocity.y);
 
         if (Input.GetKey(KeyCode.Space))
         {
