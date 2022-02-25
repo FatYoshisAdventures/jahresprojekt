@@ -9,5 +9,7 @@ public class Item : ScriptableObject
     public virtual void Use()
     {
         Debug.Log($"Shooting with {name}");
+        GameObject player = GameObject.Find("player");
+        player.GetComponentInChildren<Shoot>().item = this;
     }
 }

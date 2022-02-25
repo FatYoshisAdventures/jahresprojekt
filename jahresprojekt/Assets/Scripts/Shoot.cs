@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
-    [SerializeField] GameObject bullet;
+    [SerializeField] GameObject[] bullets;
+    [SerializeField] private Inventory inventory;
+    public Item item;
+    private int index;
 
     void Update()
     {
@@ -13,10 +16,29 @@ public class Shoot : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject()) return;
         
         //activate on left click
-
         if (Input.GetMouseButtonDown(0))
         {
-            Instantiate(bullet, this.transform.position, this.transform.rotation);
+            string itemname = "DEFAULT";
+            if (item != null)
+            {
+                itemname = item.name;
+            }
+
+            switch (itemname)
+            {
+                case "Rocket":
+                    index = 1;
+                    break;
+                default:
+                    index = 0;
+                    break;
+            }
+            Instantiate(bullets[index], this.transform.position, this.transform.rotation);
+            if (item != null)
+            {
+                inventory.RemoveItem(item);
+                item = null;
+            }
         }
     }
 }
