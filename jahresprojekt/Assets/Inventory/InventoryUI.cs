@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
@@ -15,22 +16,44 @@ public class InventoryUI : MonoBehaviour
         UpdateUI();
     }
 
-    void UpdateUI()
+    public void UpdateUI()
     {
-        //des funktioniert afoch nit
-        for (int i = 0; i < slots.Length; i++)
+        foreach (var item in slots)
         {
-            if (i < inventory.Items.Count)
+            item.ClearSlot();
+        }
+
+        for (int i = 0; i < inventory.Items.Count; i++)
+        {
+            try
             {
                 if (inventory.Items[i] != null)
                 {
                     slots[i].AddItem(inventory.Items[i]);
                 }
             }
-            else
+            catch (System.Exception) {
+                
+            }
+            if (i >= slots.Length)
             {
-                slots[i].ClearSlot();
+                break;
             }
         }
+        //des funktioniert afoch nit
+        //for (int i = 0; i < slots.Length; i++)
+        //{
+        //    if (i < inventory.Items.Count)
+        //    {
+        //        if (inventory.Items[i] != null)
+        //        {
+        //            slots[i].AddItem(inventory.Items[i]);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        slots[i].ClearSlot();
+        //    }
+        //}
     }
 }

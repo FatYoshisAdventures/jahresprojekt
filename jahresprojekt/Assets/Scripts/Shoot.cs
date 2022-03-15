@@ -24,15 +24,11 @@ public class Shoot : MonoBehaviour
                 itemname = item.name;
             }
 
-            switch (itemname)
+            index = itemname switch
             {
-                case "Rocket":
-                    index = 1;
-                    break;
-                default:
-                    index = 0;
-                    break;
-            }
+                "Rocket" => 1,
+                _ => 0,
+            };
             Instantiate(bullets[index], this.transform.position, this.transform.rotation);
             if (item != null)
             {

@@ -13,7 +13,7 @@ public class HealthRegenerate : MonoBehaviour
     [SerializeField] private float HealthRegCooldown;
 
     private bool HealthRegOnCooldown = false;
-    private BoxCollider2D collider;
+    private BoxCollider2D collider = null;
 
     [SerializeField] private bool DrawGizmo;
 

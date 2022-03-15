@@ -32,6 +32,16 @@ public class Bullet : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (rb.velocity.x > 0.2 || rb.velocity.y > 0.2 || rb.velocity.x < -0.2 || rb.velocity.y < -0.2)
+        {
+            Vector3 diff = (transform.position + (Vector3)rb.velocity) - transform.position;
+            diff.Normalize();
+
+            float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0f, 0f, rot_z);
+        }
+            
+        
         if (rb.position.y < -50)
         {
             Destroy(this.gameObject);

@@ -15,10 +15,18 @@ public class YouDied : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         canvas.enabled = false;
-    }   
+    }
 
     void Update()
     {
+        var test = rb.position.y switch
+        {
+            5 => false,
+            0 => true,
+            _ => true,
+        };
+
+        
         if (rb.position.y < -60)
         {
             canvas.enabled = true;

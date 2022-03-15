@@ -37,10 +37,10 @@ public class Inventory : ScriptableObject
 
     public void RemoveItem(Item item) 
     {
+        Items.Remove(item); 
         if (onItemChangedCallback != null)
         {
             onItemChangedCallback.Invoke();
         }
-        Items.Remove(item); 
     }
 }
