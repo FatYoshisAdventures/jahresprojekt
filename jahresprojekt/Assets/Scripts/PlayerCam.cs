@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerCam : MonoBehaviour
+public class PlayerCam : NetworkBehaviour
 {
     Vector3 Origin;
     Vector3 Difference;
@@ -29,14 +30,28 @@ public class PlayerCam : MonoBehaviour
     Camera main;
     float zoomLevel;
 
+    private void Awake()
+    {
+        player ??= this.gameObject;
+    }
+
     void Start()
     {
         main = this.gameObject.GetComponent<Camera>();
         zoomLevel = main.orthographicSize;
     }
 
+    private void Update()
+    {
+        transform.rotation = Quaternion.Euler(new(0,0,0));
+    }
+
     void LateUpdate()
     {
+        if (this.GetComponentInParent<NetworkObject>().IsOwner)
+        {
+
+        }
         Zoom();
 
         Pan();

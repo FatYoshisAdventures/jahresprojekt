@@ -18,15 +18,7 @@ public class YouDied : MonoBehaviour
     }
 
     void Update()
-    {
-        var test = rb.position.y switch
-        {
-            5 => false,
-            0 => true,
-            _ => true,
-        };
-
-        
+    {    
         if (rb.position.y < -60)
         {
             canvas.enabled = true;

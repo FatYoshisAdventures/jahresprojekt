@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
     {
         float strenght = GameObject.Find("mousewheeltracker").GetComponent<ShootsStrength>().strength;
         rb.velocity = transform.right * speed * (strenght / 100);
-        player = GameObject.Find("player");
+        player = GameObject.FindGameObjectWithTag("Player");
 
 
         Physics2D.IgnoreCollision(this.GetComponent<CircleCollider2D>(), player.GetComponentInChildren<PolygonCollider2D>());
