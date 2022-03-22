@@ -38,6 +38,10 @@ public class TerrainCreator : MonoBehaviour
             shape.spline.InsertPointAt(i + 2, new Vector3(xPos, height + deviation * Mathf.PerlinNoise(i * Random.Range(0f, 1f), 0)));;
         }
 
+        //float testing = shape.spline.GetPosition(0).y;
+        int what = ~(1 << 8);
+        Debug.Log(what);
+
         for (int i = 2; i < numOfPoints + 1; i++)
         {
             shape.spline.SetTangentMode(i, ShapeTangentMode.Continuous);
