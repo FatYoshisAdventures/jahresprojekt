@@ -1,33 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class Health : MonoBehaviour
+public class Health : NetworkBehaviour
+
 {
     [SerializeField] private bool RegenerateOnMaxHealthIncrease;
     public int maxhealth = 3;
 
-    [SerializeField] int _Health = 0;
+    [SerializeField] NetworkVariable<int> _Health = new NetworkVariable<int>(0);
 
     [HideInInspector]
-    public int health 
+    public NetworkVariable<int> health
     {
         get { return _Health; }
         set {
-            if (value <= 0)
+            if (IsServer)
             {
-                GameObject.Destroy(this.gameObject, 0);
-                //Instatniate corpse
-                if (gameObject.tag.Equals("Player"))
+                if (int.Parse(value.ToString()) <= 0)
                 {
-                    //Finds animator on player death to kill player
-                    FindObjectOfType<Canvas>().GetComponent<Animator>().SetTrigger("Dead");
+                    GameObject.Destroy(this.gameObject, 0);
+                    //Instatniate corpse
+                    if (gameObject.tag.Equals("Player"))
+                    {
+                        //Finds animator on player death to kill player
+                        FindObjectOfType<Canvas>().GetComponent<Animator>().SetTrigger("Dead");
+                    }
                 }
-            }
-            else
-            {
-                //sets health value between 0 and the maxamount of health
-                _Health = Mathf.Clamp(value, 0, maxhealth);
+                else
+                {
+                    //sets health value between 0 and the maxamount of health
+                    _Health = new NetworkVariable<int>(Mathf.Clamp(int.Parse(value.ToString()), 0, maxhealth));
+                }
             }
         } 
 
@@ -35,7 +40,7 @@ public class Health : MonoBehaviour
 
     void Start()
     {
-        health = maxhealth;
+        health = new NetworkVariable<int>(maxhealth);
     }
 
     /// <summary>
@@ -43,22 +48,28 @@ public class Health : MonoBehaviour
     /// </summary>
     /// <param name="amount"></param>
     /// <returns>returns false if health is already full</returns>
-    public bool RegenerateHealth(int amount)
+    [ServerRpc]
+    public void RegenerateHealthServerRpc(int amount)
     {
-        if (health != maxhealth)
+        if (int.Parse(health.ToString()) != maxhealth)
         {
-            health += amount;
-            return true;
+            health = new NetworkVariable<int>(int.Parse(health.ToString()) + amount);
         }
-        return false;
     }
 
-    public void IncreaseMaxHealth(int increaseamount)
+    [ServerRpc]
+    public void IncreaseMaxHealthServerRpc(int increaseamount)
     {
         maxhealth += increaseamount;
         if (RegenerateOnMaxHealthIncrease == true)
         {
-            health += increaseamount;
+            health = new NetworkVariable<int>(int.Parse(health.ToString()) + increaseamount);
         }
+    }
+
+    [ServerRpc]
+    public void DoDamageServerRpc(int damage)
+    {
+        health = new NetworkVariable<int>(int.Parse(health.ToString()) - damage);
     }
 }

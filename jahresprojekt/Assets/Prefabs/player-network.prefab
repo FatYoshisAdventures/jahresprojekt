@@ -176,6 +176,13 @@ MonoBehaviour:
   - {fileID: 6581909171800931783, guid: 0fdae1af21ac22a4cbbb123dce853611, type: 3}
   - {fileID: 6581909171800931783, guid: f1e6f3e3376386c4187653aed240e622, type: 3}
   inventory: {fileID: 11400000, guid: 23bc2fbc9d684264cbab9db69e0f61a8, type: 2}
+  audios:
+  - {fileID: 8300000, guid: 70610d83a682cb3419124dec27a6ec5f, type: 3}
+  - {fileID: 8300000, guid: 70610d83a682cb3419124dec27a6ec5f, type: 3}
+  delay: 0.1
+  volumne: 0.1
+  reloadtime: 0.75
+  mousewheeltracker: {fileID: 5032029335186597532}
   item: {fileID: 0}
 --- !u!1 &5032029333251498058
 GameObject:
@@ -1021,6 +1028,7 @@ GameObject:
   - component: {fileID: 5032029333804303724}
   - component: {fileID: 5032029333804303726}
   - component: {fileID: 5032029333804303727}
+  - component: {fileID: 9093654604427369659}
   m_Layer: 9
   m_Name: Camera
   m_TagString: Untagged
@@ -1098,7 +1106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63e6b299e3cdd9349b18adc7029c4508, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 5032029334205545867}
   minZoom: 1
   maxZoom: 10
   sensitivity: 2
@@ -1107,6 +1115,14 @@ MonoBehaviour:
   boundsTop: 14
   boundsBottom: -7
   offset: 5
+--- !u!81 &9093654604427369659
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5032029333804303725}
+  m_Enabled: 1
 --- !u!1 &5032029333870283287
 GameObject:
   m_ObjectHideFlags: 0

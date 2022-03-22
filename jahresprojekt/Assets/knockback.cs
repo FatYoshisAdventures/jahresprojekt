@@ -19,7 +19,6 @@ public class knockback : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Vector2 force = Vector2.zero;
-        Debug.Log(collision.contacts[0].normal);
         Debug.DrawRay(collision.contacts[0].point, collision.contacts[0].normal, Color.white);
         if (collision.contacts[0].normal == Vector2.left || collision.contacts[0].normal == Vector2.right)
         {

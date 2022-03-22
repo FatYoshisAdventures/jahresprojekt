@@ -12,7 +12,7 @@ public class HealthIncrease : MonoBehaviour
         if (collision.collider.gameObject.tag == "Player")
         {
             //increases player max health, regeneration is handeld in health class
-            collision.gameObject.GetComponent<Health>().IncreaseMaxHealth(IncreaseAmount);
+            collision.gameObject.GetComponent<Health>().IncreaseMaxHealthServerRpc(IncreaseAmount);
 
             //destroys this GameObject
             GameObject.Destroy(this.gameObject);

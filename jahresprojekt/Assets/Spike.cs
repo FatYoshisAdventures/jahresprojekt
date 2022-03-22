@@ -13,7 +13,7 @@ public class Spike : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             //DoDamage
-            collision.gameObject.GetComponent<Health>().health -= SpikeDamage;
+            collision.gameObject.GetComponent<Health>().DoDamageServerRpc(SpikeDamage);
 
             if (ResetToBeginingOfRoom == true)
             {

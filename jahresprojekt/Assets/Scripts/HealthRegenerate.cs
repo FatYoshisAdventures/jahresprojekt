@@ -63,8 +63,9 @@ public class HealthRegenerate : MonoBehaviour
         {              
             if (collision.gameObject.CompareTag("Player"))
             {
-                if (collision.gameObject.GetComponentInParent<Health>().RegenerateHealth(RegAmountPerRegeneration) == true)
+                if (int.Parse(collision.gameObject.GetComponentInParent<Health>().ToString()) < collision.gameObject.GetComponentInParent<Health>().maxhealth)
                 {
+                    collision.gameObject.GetComponentInParent<Health>().RegenerateHealthServerRpc(RegAmountPerRegeneration);
                     MaxRegenerationAmount -= RegAmountPerRegeneration;
                     if (MaxRegenerationAmount <= 0)
                     {
@@ -89,7 +90,7 @@ public class HealthRegenerate : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Player"))
             {
-                collision.gameObject.GetComponentInParent<Health>().RegenerateHealth(MaxRegenerationAmount);
+                collision.gameObject.GetComponentInParent<Health>().RegenerateHealthServerRpc(MaxRegenerationAmount);
                 GameObject.Destroy(this.gameObject, 0);
             }
         }

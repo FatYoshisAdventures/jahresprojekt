@@ -32,7 +32,7 @@ public class PlayerCam : NetworkBehaviour
 
     private void Awake()
     {
-        player ??= this.gameObject;
+        player ??= this.GetComponentInParent<Transform>().gameObject.GetComponentInChildren<Movement>().gameObject;
     }
 
     void Start()

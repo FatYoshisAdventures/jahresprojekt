@@ -71,7 +71,7 @@ public class Bullet : MonoBehaviour
     {
         try
         {
-            collision.gameObject.GetComponent<Health>().health--;
+            collision.gameObject.GetComponent<Health>().DoDamageServerRpc(1);
         }
         catch (Exception) { } //no health object found on hit object
         Destroy(this.gameObject, delay);
