@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.U2D;
 
@@ -17,11 +18,32 @@ public class TerrainCreator : MonoBehaviour
 
     [SerializeField] float roundness = 2f;
 
-    void Start()
+    private NetworkManager manager;
+
+    void Awake()
     {
         ChangeMapSize();
 
         GenerateTerrain();
+
+        manager = this.GetComponent<NetworkManager>();
+
+        StartHostorServer();
+    }
+
+    void StartHostorServer()
+    {
+        switch (PlayerPrefs.GetInt("host"))
+        {
+            case 0:
+                manager.StartClient();
+                break;
+            case 1:
+                manager.StartHost();
+                break;
+            default:
+                break;
+        }
     }
 
     void GenerateTerrain()
