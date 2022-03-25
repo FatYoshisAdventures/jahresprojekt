@@ -4,7 +4,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.U2D;
 
-public class TerrainCreator : MonoBehaviour
+public class TerrainCreator : NetworkBehaviour
 {
     [SerializeField] SpriteShapeController shape;
 
@@ -18,17 +18,19 @@ public class TerrainCreator : MonoBehaviour
 
     [SerializeField] float roundness = 2f;
 
+    private List<float> yValues;
+    
+
     private NetworkManager manager;
 
-    void Awake()
+    void Start()
     {
+        manager = this.GetComponent<NetworkManager>();
+        StartHostorServer();
+
         ChangeMapSize();
 
         GenerateTerrain();
-
-        manager = this.GetComponent<NetworkManager>();
-
-        StartHostorServer();
     }
 
     void StartHostorServer()
@@ -44,31 +46,56 @@ public class TerrainCreator : MonoBehaviour
             default:
                 break;
         }
+        PlayerPrefs.DeleteKey("host");
     }
-
+    
     void GenerateTerrain()
     {
-        // calculate exact horizontal size of map
-        float scale = shape.spline.GetPosition(2).x - shape.spline.GetPosition(1).x;
-
-        // calculate what the distance between the points should be
-        float distanceBtwnPoints = scale / numOfPoints;
-
-        for (int i = 0; i < numOfPoints - 1; i++)
+        if (manager.IsServer)
         {
-            float xPos = shape.spline.GetPosition(i + 1).x + distanceBtwnPoints;
-            shape.spline.InsertPointAt(i + 2, new Vector3(xPos, height + deviation * Mathf.PerlinNoise(i * Random.Range(0f, 1f), 0)));;
+            Debug.Log("test");
+            // calculate exact horizontal size of map
+            float scale = shape.spline.GetPosition(2).x - shape.spline.GetPosition(1).x;
+
+            // calculate what the distance between the points should be
+            float distanceBtwnPoints = scale / numOfPoints;
+
+            for (int i = 0; i < numOfPoints - 1; i++)
+            {
+                float xPos = shape.spline.GetPosition(i + 1).x + distanceBtwnPoints;
+
+                Vector3 temp = new Vector3(xPos, height + deviation * Mathf.PerlinNoise(i * Random.Range(0f, 1f), 0));
+                yValues.Add(temp.y);
+                shape.spline.InsertPointAt(i + 2, temp);
+
+            }
+
+            for (int i = 2; i < numOfPoints + 1; i++)
+            {
+                shape.spline.SetTangentMode(i, ShapeTangentMode.Continuous);
+                shape.spline.SetLeftTangent(i, new Vector3(-roundness, 0, 0));
+                shape.spline.SetRightTangent(i, new Vector3(+roundness, 0, 0));
+            }
+
         }
-
-        //float testing = shape.spline.GetPosition(0).y;
-        int what = ~(1 << 8);
-        Debug.Log(what);
-
-        for (int i = 2; i < numOfPoints + 1; i++)
+        else if (IsClient)
         {
-            shape.spline.SetTangentMode(i, ShapeTangentMode.Continuous);
-            shape.spline.SetLeftTangent(i, new Vector3(-roundness, 0, 0));
-            shape.spline.SetRightTangent(i, new Vector3(+roundness, 0, 0));
+
+        }
+    }
+
+    [ServerRpc]
+    void GetShapeYValues()
+    {
+        SendShapeYValues();
+    }
+
+    [ClientRpc]
+    void SendShapeYValues()
+    {
+        if (IsClient)
+        {
+            
         }
     }
 

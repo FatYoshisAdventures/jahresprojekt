@@ -18,7 +18,7 @@ public class Health : NetworkBehaviour
         set {
             if (IsServer)
             {
-                if (int.Parse(value.ToString()) <= 0)
+                if (value.Value <= 0)
                 {
                     GameObject.Destroy(this.gameObject, 0);
                     //Instatniate corpse
@@ -31,7 +31,7 @@ public class Health : NetworkBehaviour
                 else
                 {
                     //sets health value between 0 and the maxamount of health
-                    _Health = new NetworkVariable<int>(Mathf.Clamp(int.Parse(value.ToString()), 0, maxhealth));
+                    _Health = new NetworkVariable<int>(Mathf.Clamp(value.Value, 0, maxhealth));
                 }
             }
         } 
@@ -51,9 +51,9 @@ public class Health : NetworkBehaviour
     [ServerRpc]
     public void RegenerateHealthServerRpc(int amount)
     {
-        if (int.Parse(health.ToString()) != maxhealth)
+        if (health.Value != maxhealth)
         {
-            health = new NetworkVariable<int>(int.Parse(health.ToString()) + amount);
+            health = new NetworkVariable<int>(health.Value+ amount);
         }
     }
 
@@ -63,13 +63,13 @@ public class Health : NetworkBehaviour
         maxhealth += increaseamount;
         if (RegenerateOnMaxHealthIncrease == true)
         {
-            health = new NetworkVariable<int>(int.Parse(health.ToString()) + increaseamount);
+            health = new NetworkVariable<int>(health.Value + increaseamount);
         }
     }
 
     [ServerRpc]
     public void DoDamageServerRpc(int damage)
     {
-        health = new NetworkVariable<int>(int.Parse(health.ToString()) - damage);
+        health = new NetworkVariable<int>(health.Value - damage);
     }
 }

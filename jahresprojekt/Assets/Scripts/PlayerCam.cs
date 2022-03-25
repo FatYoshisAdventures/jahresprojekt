@@ -48,10 +48,6 @@ public class PlayerCam : NetworkBehaviour
 
     void LateUpdate()
     {
-        if (this.GetComponentInParent<NetworkObject>().IsOwner)
-        {
-
-        }
         Zoom();
 
         Pan();
