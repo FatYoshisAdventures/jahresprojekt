@@ -48,6 +48,7 @@ public class Shoot : NetworkBehaviour
                     "Rocket" => 1,
                     _ => 0,
                 };
+
                 StartCoroutine(shooting());
                 StartCoroutine(reload());
                 //Instantiate(bullets[index], this.transform.position, this.transform.rotation);
