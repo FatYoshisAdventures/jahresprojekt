@@ -174,13 +174,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullets:
   - {fileID: 6581909171800931783, guid: 0fdae1af21ac22a4cbbb123dce853611, type: 3}
-  - {fileID: 6581909171800931783, guid: f1e6f3e3376386c4187653aed240e622, type: 3}
   inventory: {fileID: 11400000, guid: 23bc2fbc9d684264cbab9db69e0f61a8, type: 2}
   audios:
   - {fileID: 8300000, guid: 70610d83a682cb3419124dec27a6ec5f, type: 3}
   - {fileID: 8300000, guid: 70610d83a682cb3419124dec27a6ec5f, type: 3}
   delay: 0.1
-  volumne: 0.1
+  maxvolumne: 0.1
   reloadtime: 0.75
   mousewheeltracker: {fileID: 5032029335186597532}
   item: {fileID: 0}
@@ -1602,7 +1601,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RegenerateOnMaxHealthIncrease: 0
   maxhealth: 10
-  _Health: 0
+  _Health:
+    m_InternalValue: 0
 --- !u!1 &5032029334213704771
 GameObject:
   m_ObjectHideFlags: 0

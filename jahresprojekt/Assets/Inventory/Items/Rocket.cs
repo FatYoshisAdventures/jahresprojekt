@@ -5,10 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Rocket", menuName = "Inventory System/Item/Rocket")]
 public class Rocket : Item
 {
+    public GameObject rocket;
+
     public override void Use()
     {
-        base.Use();
-
-        Debug.Log("Shooting the rOCKET!!!");
+        Instantiate(rocket);
     }
 }
