@@ -7,8 +7,8 @@ public class Rocket : Item
 {
     public GameObject rocket;
 
-    public override void Use()
+    public override void Use(Transform t)
     {
-        Instantiate(rocket);
+        Instantiate(rocket, t.position, t.rotation);
     }
 }

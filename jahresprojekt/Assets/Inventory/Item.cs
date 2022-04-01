@@ -1,10 +1,22 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item", menuName ="Inventory System/Item")]
-public abstract class Item : ScriptableObject
+public class Item : ScriptableObject
 {
     new public string name = "New Item";
     public Sprite icon = null;
 
-    public abstract void Use();
+    public virtual void Use()
+    {
+
+    }
+
+    public virtual void Use(Transform t)
+    {
+
+    }
+
+    public void Select()
+    {
+
+    }
 }

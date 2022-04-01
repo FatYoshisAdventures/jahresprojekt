@@ -1,19 +1,28 @@
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
     public Inventory inventory;
+    public ActiveItem activeItem;
 
     InventorySlot[] slots;
 
     void Start()
     {
         inventory.onItemChangedCallback += UpdateUI;
-
+        
         slots = GetComponentsInChildren<InventorySlot>();
+        Array.ForEach(slots, slot => slot.onItemSelectedCallback += SelectItem);
 
         UpdateUI();
+    }
+
+    public void SelectItem(Item item)
+    {
+        Debug.Log(item);
+        activeItem.SetItem(item);
     }
 
     public void UpdateUI()

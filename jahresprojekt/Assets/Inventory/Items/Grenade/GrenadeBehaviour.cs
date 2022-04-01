@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RocketBehaviour : MonoBehaviour
+public class GrenadeBehaviour : MonoBehaviour
 {
     Rigidbody2D rb;
+    
+    private float delay = 2;
     
     [SerializeField] float speed = 5f;
 
@@ -14,18 +16,28 @@ public class RocketBehaviour : MonoBehaviour
 
     [SerializeField] GameObject player;
 
+    [SerializeField] GameObject explosion;
+
     List<GameObject> collidedWith = new List<GameObject>();
 
     void Start()
     {
-        rb ??= this.GetComponent<Rigidbody2D>();
+        rb = this.GetComponent<Rigidbody2D>();
 
+        //Set initial speed
         rb.velocity = transform.right * speed;
 
         Physics2D.IgnoreCollision(this.GetComponent<CircleCollider2D>(), player.GetComponentInChildren<PolygonCollider2D>());
     }
 
     void FixedUpdate()
+    {
+        Move();
+
+        DestroyBelowLevel();
+    }
+
+    private void Move()
     {
         if (rb.velocity.x > 0.2 || rb.velocity.y > 0.2 || rb.velocity.x < -0.2 || rb.velocity.y < -0.2)
         {
@@ -35,7 +47,10 @@ public class RocketBehaviour : MonoBehaviour
             float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0f, 0f, rot_z);
         }
+    }
 
+    private void DestroyBelowLevel()
+    {
         if (rb.position.y < -50)
         {
             Destroy(this.gameObject);
@@ -45,49 +60,53 @@ public class RocketBehaviour : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player") return;
-
+        
         if (collidedWith.Contains(collision.gameObject)) return;
-
         collidedWith.Add(collision.gameObject);
 
+        //TODO: implement grenade explodinng after a delay
+        
         if (collision.gameObject.tag == "ground")
         {
             Destroy(this.gameObject, 1f);
         }
-        else
+        else 
         {
-            DoDamage(collision);
             Explode(collision);
         }
     }
 
     void DoDamage(Collision2D collision)
     {
-        try
+        if (collision.gameObject.TryGetComponent(out Health gameObject))
         {
-            collision.gameObject.GetComponent<Health>().DoDamageServerRpc(1);
+            gameObject.DoDamageServerRpc(1);
         }
-        catch (Exception) { } //no health object found on hit object
     }
 
     void Explode(Collision2D collision)
     {
+        //Damage colliding Object
+        DoDamage(collision);
+        
+        //Summon explosion effect
+        GameObject tempExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
+        Destroy(tempExplosion, 3f);
+        
+        //Get nearby objects affected by explosion
         Vector3 pointbetween = (collision.gameObject.transform.position + this.gameObject.transform.position) / 2;
-
         Collider2D[] colliders = Physics2D.OverlapCircleAll(pointbetween, explosionradius);
 
+        //Add explosion force to nearby objects
         foreach (Collider2D nearbyObject in colliders)
         {
-            Rigidbody2D rb = nearbyObject.gameObject.GetComponent<Rigidbody2D>();
-
-            if (rb == null)
+            if (nearbyObject.TryGetComponent(out Rigidbody2D rb))
             {
-
-            }
-            else
-            {
-                rb.AddExplosionForce(explosionforce * rb.velocity.magnitude, pointbetween, explosionradius * rb.velocity.magnitude);
+                rb.AddExplosionForce(explosionforce, pointbetween, explosionradius);
             }
         }
+        
+        //Destroy grenade
+        Destroy(this.gameObject, delay);
     }
 }
