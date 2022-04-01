@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.Netcode.Transports.UNET;
 using UnityEngine;
 using UnityEngine.U2D;
 
@@ -40,7 +41,13 @@ public class TerrainCreator : NetworkBehaviour
     {
         switch (PlayerPrefs.GetInt("host"))
         {
+            
             case 0:
+                manager.gameObject.GetComponent<UNetTransport>().ConnectAddress = PlayerPrefs.GetString("ip") switch
+                {
+                    "" => "127.0.0.1",
+                    _ => PlayerPrefs.GetString("ip"),
+                };
                 manager.StartClient();
                 StartCoroutine(wait());
                 //GetShapeYValuesServerRpc();
