@@ -8,12 +8,15 @@ public class Shoot : NetworkBehaviour
 {
     [SerializeField] private Inventory inventory;
     [SerializeField] private ActiveItem activeItem;
+    [SerializeField] private Camera camera;
 
-    [SerializeField] AudioClip[] audios;
+    [SerializeField] private TrajectoryLine tl;
+    
     [SerializeField] private float delay = 0.1f;
     [SerializeField] private float maxVolume = 0.1f;
     [SerializeField] private float reloadtime = 0.75f;
     [SerializeField] private float volume = 0.5f;
+
 
     private int index;
     private bool reloaded;
@@ -34,31 +37,31 @@ public class Shoot : NetworkBehaviour
         //return if no item is selected
         if (activeItem.item == null) return;
 
-        //activate on left click
-        //if(Input.GetMouseButton(0))
-        if (Input.GetMouseButtonDown(0) && reloaded)
+        //while left click
+        if (Input.GetMouseButton(0))
         {
-            string itemname = activeItem.item != null ? activeItem.item.name : "DEFAULT";
+            Vector3 currentPoint = camera.ScreenToWorldPoint(Input.mousePosition);
+            currentPoint.z = 15;
+            tl.RenderLine(this.transform.position, currentPoint);
+            //Debug.Log(this.transform.position + " " + currentPoint);
+        }
+        
+        //on leaving left click
+        if (Input.GetMouseButtonUp(0))
+        {
+            tl.EndLine();
 
-            index = itemname switch
-            {
-                "Rocket" => 1,
-                _ => 0,
-            };
+            if (!reloaded) return;
 
             StartCoroutine(shooting());
             StartCoroutine(reload());
-
-            //AudioSource.PlayClipAtPoint(audios[index], this.transform.position, volumne);
-            AudioSource.PlayClipAtPoint(audios[index], this.transform.position, volume);
-            Debug.Log($"Volume: {volume}");
         }
     }
 
     IEnumerator shooting()
     {
         yield return new WaitForSeconds(delay);
-        activeItem.item.Use(this.transform);
+        activeItem.item.Use(this.transform, camera.ScreenToWorldPoint(Input.mousePosition));
     }
 
     IEnumerator reload()

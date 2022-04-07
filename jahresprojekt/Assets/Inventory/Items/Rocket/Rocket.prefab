@@ -120,11 +120,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ece29e13867a3749a8b61b502cd45ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  speed: 2
   explosionradius: 1
   explosionforce: 100
   player: {fileID: 3953952999719630417, guid: 745d1680dc97c7f4787de7bf048acd34, type: 3}
   explosion: {fileID: 7121804981578898042, guid: 44026594f9523484d83801b2b7f9a834, type: 3}
+  sound: {fileID: 8300000, guid: 70610d83a682cb3419124dec27a6ec5f, type: 3}
+  volume: 0.75
 --- !u!61 &2241439640674985743
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -138,7 +140,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.301265, y: -0.0049390793}
+  m_Offset: {x: 0.40788162, y: -0.0049390793}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -149,5 +151,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.08497, y: 1.062439}
+  m_Size: {x: 3.097779, y: 1.062439}
   m_EdgeRadius: 0

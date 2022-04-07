@@ -17,17 +17,23 @@ public class RocketBehaviour : MonoBehaviour
     [SerializeField] GameObject player;
 
     [SerializeField] GameObject explosion;
+    
+    [SerializeField] AudioClip sound;
+
+    [SerializeField] float volume = 0.75f;
 
     List<GameObject> collidedWith = new List<GameObject>();
 
-    void Start()
+
+    private void Awake()
     {
         rb = this.GetComponent<Rigidbody2D>();
 
-        //Set initial speed
         rb.velocity = transform.right * speed;
 
         Physics2D.IgnoreCollision(this.GetComponent<BoxCollider2D>(), player.GetComponentInChildren<PolygonCollider2D>());
+
+        AudioSource.PlayClipAtPoint(sound, this.transform.position, volume);
     }
 
     void FixedUpdate()
@@ -36,6 +42,14 @@ public class RocketBehaviour : MonoBehaviour
 
         DestroyBelowLevel();
     }
+    
+    public void SetSpeed(Vector3 destination)
+    {
+        Vector3 difference = destination - this.transform.position;
+
+        rb.velocity = difference * speed;
+    }
+
 
     private void Move()
     {

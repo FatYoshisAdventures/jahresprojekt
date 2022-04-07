@@ -10,7 +10,7 @@ public class Item : ScriptableObject
 
     }
 
-    public virtual void Use(Transform t)
+    public virtual void Use(Transform origin, Vector3 destination)
     {
 
     }

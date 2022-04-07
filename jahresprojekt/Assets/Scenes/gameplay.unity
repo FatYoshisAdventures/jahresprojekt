@@ -196,6 +196,7 @@ MonoBehaviour:
   deviation: 5
   mapSize: 40
   roundness: 2
+  manager: {fileID: 173254427}
 --- !u!4 &173254425
 Transform:
   m_ObjectHideFlags: 0

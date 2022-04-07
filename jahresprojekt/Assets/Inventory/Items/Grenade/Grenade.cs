@@ -7,7 +7,7 @@ public class Grenade : Item
 {
     public GameObject rocket;
 
-    public override void Use(Transform t)
+    public override void Use(Transform t, Vector3 destination)
     {
         Instantiate(rocket, t.position, t.rotation);
     }

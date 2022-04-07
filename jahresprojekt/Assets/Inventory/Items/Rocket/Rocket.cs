@@ -7,8 +7,9 @@ public class Rocket : Item
 {
     public GameObject rocket;
 
-    public override void Use(Transform t)
+    public override void Use(Transform origin, Vector3 destination)
     {
-        Instantiate(rocket, t.position, t.rotation);
+        GameObject r = Instantiate(rocket, origin.position, origin.rotation) as GameObject;
+        r.GetComponent<RocketBehaviour>().SetSpeed(destination);
     }
 }

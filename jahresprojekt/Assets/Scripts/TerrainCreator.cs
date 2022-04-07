@@ -46,12 +46,12 @@ public class TerrainCreator : NetworkBehaviour
                 if (ip == "") ip = "127.0.0.1";
                 manager.gameObject.GetComponent<UNetTransport>().ConnectAddress = ip;
                 
-                manager.StartHost();
+                manager.StartClient();
                 StartCoroutine(wait());
                 //GetShapeYValuesServerRpc();
                 break;
             case 1:
-                manager.StartClient();
+                manager.StartHost();
                 StartCoroutine(wait());
                 break;
             default:
