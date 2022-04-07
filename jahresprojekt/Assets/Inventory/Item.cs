@@ -10,7 +10,12 @@ public class Item : ScriptableObject
 
     }
 
-    public virtual void Use(Transform origin, Vector3 destination)
+    //public virtual void Use(Transform origin, Vector3 destination, ulong clientid)
+    //{
+
+    //}
+    
+    public virtual void Use(Vector3 origionpos, Quaternion origionrot, Vector3 destination, ulong clientid)
     {
 
     }

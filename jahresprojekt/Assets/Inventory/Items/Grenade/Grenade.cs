@@ -7,9 +7,9 @@ public class Grenade : Item
 {
     public GameObject grenade;
 
-    public override void Use(Transform origin, Vector3 destination)
+    public override void Use(Vector3 originpos, Quaternion originrot, Vector3 destination, ulong clientid)
     {
-        GameObject g = Instantiate(grenade, origin.position, origin.rotation) as GameObject;
+        GameObject g = Instantiate(grenade, originpos, originrot) as GameObject;
         g.GetComponent<GrenadeBehaviour>().SetSpeed(destination);
     }
 }

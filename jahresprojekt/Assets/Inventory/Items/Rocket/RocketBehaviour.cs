@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class RocketBehaviour : MonoBehaviour
+public class RocketBehaviour : NetworkBehaviour
 {
     Rigidbody2D rb;
     
@@ -24,24 +25,41 @@ public class RocketBehaviour : MonoBehaviour
 
     List<GameObject> collidedWith = new List<GameObject>();
 
+    public NetworkVariable<Vector3> velocity = new NetworkVariable<Vector3>();
+
 
     private void Awake()
     {
         rb = this.GetComponent<Rigidbody2D>();
 
-        rb.velocity = transform.right * speed;
+        //rb.velocity = transform.right * speed;
 
         Physics2D.IgnoreCollision(this.GetComponent<BoxCollider2D>(), player.GetComponentInChildren<PolygonCollider2D>());
 
         AudioSource.PlayClipAtPoint(sound, this.transform.position, volume);
     }
 
+    void Update()
+    {
+        
+    }
+
     void FixedUpdate()
     {
+        
+        getVelocityServerRpc();
+
         Move();
 
         DestroyBelowLevel();
     }
+
+    [ServerRpc(Delivery = RpcDelivery.Reliable, RequireOwnership = false)]
+    private void getVelocityServerRpc()
+    {
+        velocity.Value = rb.velocity;
+    }
+
     
     public void SetSpeed(Vector3 destination)
     {
@@ -53,6 +71,7 @@ public class RocketBehaviour : MonoBehaviour
 
     private void Move()
     {
+        rb.velocity = velocity.Value;
         if (rb.velocity.x > 0.2 || rb.velocity.y > 0.2 || rb.velocity.x < -0.2 || rb.velocity.y < -0.2)
         {
             Vector3 diff = (transform.position + (Vector3)rb.velocity) - transform.position;
@@ -91,27 +110,42 @@ public class RocketBehaviour : MonoBehaviour
 
     void Explode(Collision2D collision)
     {
-        //Damage colliding Object
-        DoDamage(collision);
         
-        //Summon explosion effect
-        GameObject tempExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
-        Destroy(tempExplosion, 3f);
-        
-        //Get nearby objects affected by explosion
-        Vector3 pointbetween = (collision.gameObject.transform.position + this.gameObject.transform.position) / 2;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(pointbetween, explosionradius);
-
-        //Add explosion force to nearby objects
-        foreach (Collider2D nearbyObject in colliders)
+        //only server should execute those functions, if the velocity of bullets near this one changes the pos over the networkvarable attached
+        if (IsServer)
         {
-            if (nearbyObject.TryGetComponent(out Rigidbody2D rb))
+            //Damage colliding Object
+            DoDamage(collision);
+
+            //Get nearby objects affected by explosion
+            Vector3 pointbetween = (collision.gameObject.transform.position + this.gameObject.transform.position) / 2;
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(pointbetween, explosionradius);
+
+            //Add explosion force to nearby objects
+            foreach (Collider2D nearbyObject in colliders)
             {
-                rb.AddExplosionForce(explosionforce, pointbetween, explosionradius);
+                if (nearbyObject.TryGetComponent(out Rigidbody2D rb))
+                {
+                    rb.AddExplosionForce(explosionforce, pointbetween, explosionradius);
+                }
             }
         }
-        
-        //Destroy rocket
-        Destroy(this.gameObject);
+
+        SpawnExplosionServerRpc();
+
+        if (IsServer)
+        {
+            //Destroy rocket
+            this.GetComponent<NetworkObject>().Despawn();
+        }
+    }
+
+    [ServerRpc(Delivery = RpcDelivery.Reliable, RequireOwnership = false)]
+    void SpawnExplosionServerRpc()
+    {
+        //Summon explosion effect
+        GameObject tempExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
+        tempExplosion.GetComponent<NetworkObject>().Spawn();
+        Destroy(tempExplosion, 3f);
     }
 }

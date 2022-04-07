@@ -644,6 +644,9 @@ MonoBehaviour:
   maxVolume: 0.1
   reloadtime: 0.75
   volume: 0.5
+  items:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &5032029333251498058
 GameObject:
   m_ObjectHideFlags: 0

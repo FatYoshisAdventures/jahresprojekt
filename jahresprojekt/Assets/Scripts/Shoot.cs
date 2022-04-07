@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine;
 using Unity.Netcode;
 
+
 public class Shoot : NetworkBehaviour
 {
     [SerializeField] private Inventory inventory;
@@ -36,6 +37,8 @@ public class Shoot : NetworkBehaviour
             tl.EndLine();
         }
 
+        
+
         //return if on ui-element
         if (EventSystem.current.IsPointerOverGameObject()) return;
 
@@ -50,10 +53,13 @@ public class Shoot : NetworkBehaviour
             tl.RenderLine(this.transform.position, currentPoint, reloaded);
             //Debug.Log(this.transform.position + " " + currentPoint);
         }
+
+        Debug.Log("bitte");
         
         //on leaving left click
         if (Input.GetMouseButtonUp(0) && reloaded)
         {
+            
             StartCoroutine(Shooting());
             StartCoroutine(Reload());
         }
@@ -64,8 +70,19 @@ public class Shoot : NetworkBehaviour
         Vector3 destination = camera.ScreenToWorldPoint(Input.mousePosition);
 
         yield return new WaitForSeconds(delay);
-        activeItem.item.Use(this.transform, destination);
+        //activeItem.item.Use(this.transform, destination, NetworkObject.OwnerClientId);
+        UseItemServerRpc(this.GetComponentInParent<NetworkObject>().OwnerClientId, this.transform.position, this.transform.rotation, destination, inventory.Items.IndexOf(activeItem.item));
     }
+
+    //ensures that server is responsible so object can be successfully spawned later
+    [ServerRpc(Delivery = RpcDelivery.Reliable, RequireOwnership = false)]
+    public void UseItemServerRpc(ulong ownerclientID, Vector3 transformpos, Quaternion transformrot, Vector3 position, int index)
+    {
+        activeItem.item = inventory.Items[index];
+        activeItem.item.Use(transformpos, transformrot, position, ownerclientID);
+    }
+
+    
 
     IEnumerator Reload()
     {

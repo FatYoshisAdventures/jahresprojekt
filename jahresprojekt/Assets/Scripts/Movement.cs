@@ -17,6 +17,12 @@ public class Movement : NetworkBehaviour
         rb = this.GetComponent<Rigidbody2D>();
     }
 
+    void Update()
+    {
+        
+
+    }
+
     void FixedUpdate()
     {
         if (this.GetComponentInParent<NetworkObject>().IsOwner)
