@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6581909171800931784}
   - component: {fileID: 6581909171800931785}
   - component: {fileID: 6581909171800931782}
-  - component: {fileID: 6581909171800931787}
-  - component: {fileID: -4592911133616675963}
+  - component: {fileID: 6363167997520419070}
+  - component: {fileID: 2241439640674985743}
   m_Layer: 12
   m_Name: Rocket
   m_TagString: Bullet
@@ -108,7 +108,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &6581909171800931787
+--- !u!114 &6363167997520419070
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,16 +117,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6581909171800931783}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20c264e2ad21edb459bf18e4261e9324, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ece29e13867a3749a8b61b502cd45ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
-  rb: {fileID: 6581909171800931782}
-  explosionradius: 2
-  explosionforce: 200
-  player: {fileID: 4362835533929646781, guid: 9c52b54c94a71b041bf7992e04f7a36c, type: 3}
---- !u!58 &-4592911133616675963
-CircleCollider2D:
+  speed: 15
+  explosionradius: 1
+  explosionforce: 100
+  player: {fileID: 3953952999719630417, guid: 745d1680dc97c7f4787de7bf048acd34, type: 3}
+  explosion: {fileID: 7121804981578898042, guid: 44026594f9523484d83801b2b7f9a834, type: 3}
+--- !u!61 &2241439640674985743
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -138,6 +138,16 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.301265, y: -0.0049390793}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4.6875, y: 4.6875}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 4.08497, y: 1.062439}
+  m_EdgeRadius: 0

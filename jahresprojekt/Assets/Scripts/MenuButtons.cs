@@ -9,4 +9,16 @@ public class MenuButtons : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+
+    public void Host()
+    {
+        PlayerPrefs.SetInt("host", 1);
+        SceneManager.LoadScene(1);
+    }
+
+    public void join()
+    {
+        PlayerPrefs.SetInt("host", 0);
+        SceneManager.LoadScene(1);
+    }
 }

@@ -6,19 +6,17 @@ using Unity.Netcode;
 
 public class Shoot : NetworkBehaviour
 {
-    [SerializeField] GameObject[] bullets;
     [SerializeField] private Inventory inventory;
+    [SerializeField] private ActiveItem activeItem;
+
     [SerializeField] AudioClip[] audios;
     [SerializeField] private float delay = 0.1f;
-    [SerializeField] private float maxvolumne = 0.1f;
+    [SerializeField] private float maxVolume = 0.1f;
     [SerializeField] private float reloadtime = 0.75f;
-    [SerializeField] private GameObject mousewheeltracker;
+    [SerializeField] private float volume = 0.5f;
 
-    [HideInInspector] public Item item;
     private int index;
     private bool reloaded;
-    private float shootstrenght;
-    private float volumne;
 
     private void Awake()
     {
@@ -27,47 +25,39 @@ public class Shoot : NetworkBehaviour
 
     void Update()
     {
-        if (this.GetComponentInParent<NetworkObject>().IsOwner)
-        {
-            //return if on ui-element
-            if (EventSystem.current.IsPointerOverGameObject()) return;
-        
-            //activate on left click
-            //if(Input.GetMouseButton(0))
-            if (Input.GetMouseButtonDown(0) && reloaded)
-            {
-            
-                string itemname = "DEFAULT";
-                if (item != null)
-                {
-                    itemname = item.name;
-                }
+        //return if not owner
+        if (!this.GetComponentInParent<NetworkObject>().IsOwner) return;
 
-                index = itemname switch
-                {
-                    "Rocket" => 1,
-                    _ => 0,
-                };
-                StartCoroutine(shooting());
-                StartCoroutine(reload());
-                //Instantiate(bullets[index], this.transform.position, this.transform.rotation);
-                shootstrenght = mousewheeltracker.GetComponent<ShootsStrength>().strength;
-                volumne = Mathf.Lerp(0.25f, maxvolumne, shootstrenght / 100);
-                Debug.Log(volumne);
-                AudioSource.PlayClipAtPoint(audios[index], this.transform.position, volumne);
-                if (item != null)
-                {
-                    inventory.RemoveItem(item);
-                    item = null;
-                }
-            }
+        //return if on ui-element
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+
+        //return if no item is selected
+        if (activeItem.item == null) return;
+
+        //activate on left click
+        //if(Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0) && reloaded)
+        {
+            string itemname = activeItem.item != null ? activeItem.item.name : "DEFAULT";
+
+            index = itemname switch
+            {
+                "Rocket" => 1,
+                _ => 0,
+            };
+
+            StartCoroutine(shooting());
+            StartCoroutine(reload());
+
+            AudioSource.PlayClipAtPoint(audios[index], this.transform.position, volume);
+            Debug.Log($"Volume: {volume}");
         }
     }
 
     IEnumerator shooting()
     {
         yield return new WaitForSeconds(delay);
-        Instantiate(bullets[index], this.transform.position, this.transform.rotation);
+        activeItem.item.Use(this.transform);
     }
 
     IEnumerator reload()
