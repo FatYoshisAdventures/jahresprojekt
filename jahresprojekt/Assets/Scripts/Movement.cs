@@ -8,6 +8,8 @@ public class Movement : NetworkBehaviour
     // Start is called before the first frame update
     Rigidbody2D rb;
 
+    public NetworkVariable<Vector3> Velocity = new NetworkVariable<Vector3>();
+
     [SerializeField] private float speed = 10f;
 
     void Start()
@@ -21,6 +23,15 @@ public class Movement : NetworkBehaviour
         {
             float h = Input.GetAxisRaw("Horizontal");
 
+            MovementServerRpc(h);
+
+            if (Input.GetKey(KeyCode.Space))
+            {
+                ResetPositionServerRpc();
+            }
+
+
+            //pretends to move player locally but gets overwritten by server saved data
             #region movement test with clamping
             if (h == 0)
             {
@@ -41,11 +52,50 @@ public class Movement : NetworkBehaviour
             //rb.AddForce(new Vector2(h * speed * Time.fixedDeltaTime,0), ForceMode2D.Impulse);
             //rb.velocity = new Vector2(rb.velocity.x + h * speed * Time.fixedDeltaTime, rb.velocity.y);
 
-            if (Input.GetKey(KeyCode.Space))
-            {
-                ResetRotation();
-            }
         }
+        //rb.velocity = Velocity.Value;
+        transform.position = Velocity.Value;
+    }
+
+    [ServerRpc(Delivery = RpcDelivery.Reliable, RequireOwnership = false)]
+    void MovementServerRpc(float horizontal)
+    {
+        if (horizontal == 0)
+        {
+            //stands still, should be moving only through external influences
+            rb.velocity = new Vector2(rb.velocity.x + horizontal * speed * Time.fixedDeltaTime, rb.velocity.y);
+        }
+        else if (horizontal > 0.1)
+        {
+            //moves to the right
+            rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x + horizontal * speed * Time.fixedDeltaTime, 0, 2), rb.velocity.y);
+        }
+        else if (horizontal < -0.1)
+        {
+            //moves to the left
+            rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x + horizontal * speed * Time.fixedDeltaTime, -2, 0), rb.velocity.y);
+        }
+        //Velocity.Value = rb.velocity;
+        Velocity.Value = this.transform.position;
+    }
+    
+    [ServerRpc(Delivery = RpcDelivery.Reliable, RequireOwnership = false)]
+    void ResetPositionServerRpc()
+    {
+        rb.angularVelocity = 0f;
+        transform.eulerAngles = new Vector3(0, 0, 0);
+        transform.position = new Vector2(rb.position.x, rb.position.y + 1);
+        rb.velocity = Vector2.zero;
+        ResetPositionClientRpc();
+    }
+
+    [ClientRpc]
+    void ResetPositionClientRpc()
+    {
+        rb.angularVelocity = 0f;
+        transform.eulerAngles = new Vector3(0, 0, 0);
+        transform.position = new Vector2(rb.position.x, rb.position.y + 1);
+        rb.velocity = Vector2.zero;
     }
 
     void ResetRotation()

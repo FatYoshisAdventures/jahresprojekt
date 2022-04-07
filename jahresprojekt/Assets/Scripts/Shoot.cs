@@ -49,6 +49,11 @@ public class Shoot : NetworkBehaviour
             StartCoroutine(shooting());
             StartCoroutine(reload());
 
+
+            shootstrenght = mousewheeltracker.GetComponent<ShootsStrength>().strength;
+            volumne = Mathf.Lerp(0.25f, maxvolumne, shootstrenght / 100);
+                
+            //AudioSource.PlayClipAtPoint(audios[index], this.transform.position, volumne);
             AudioSource.PlayClipAtPoint(audios[index], this.transform.position, volume);
             Debug.Log($"Volume: {volume}");
         }
