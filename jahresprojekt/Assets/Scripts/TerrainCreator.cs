@@ -41,19 +41,18 @@ public class TerrainCreator : NetworkBehaviour
     {
         switch (PlayerPrefs.GetInt("host"))
         {
-            
             case 0:
-                manager.gameObject.GetComponent<UNetTransport>().ConnectAddress = PlayerPrefs.GetString("ip") switch
-                {
-                    "" => "127.0.0.1",
-                    _ => PlayerPrefs.GetString("ip"),
-                };
-                manager.StartClient();
+                string ip = PlayerPrefs.GetString("ip");
+                if (ip == "") ip = "127.0.0.1";
+                manager.gameObject.GetComponent<UNetTransport>().ConnectAddress = ip;
+                
+                manager.StartHost();
                 StartCoroutine(wait());
                 //GetShapeYValuesServerRpc();
                 break;
             case 1:
-                manager.StartHost();
+                manager.StartClient();
+                StartCoroutine(wait());
                 break;
             default:
                 break;
@@ -67,7 +66,7 @@ public class TerrainCreator : NetworkBehaviour
     /// <returns></returns>
     IEnumerator wait()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         GetShapeYValuesServerRpc();
     }
 

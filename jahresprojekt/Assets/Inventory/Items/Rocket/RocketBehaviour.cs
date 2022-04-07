@@ -27,7 +27,7 @@ public class RocketBehaviour : MonoBehaviour
         //Set initial speed
         rb.velocity = transform.right * speed;
 
-        Physics2D.IgnoreCollision(this.GetComponent<CircleCollider2D>(), player.GetComponentInChildren<PolygonCollider2D>());
+        Physics2D.IgnoreCollision(this.GetComponent<BoxCollider2D>(), player.GetComponentInChildren<PolygonCollider2D>());
     }
 
     void FixedUpdate()
