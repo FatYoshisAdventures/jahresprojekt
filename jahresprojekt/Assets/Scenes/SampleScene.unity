@@ -1111,6 +1111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b944f8dec43b4d4e92313c9abf5f6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Velocity:
+    m_InternalValue: {x: 0, y: 0, z: 0}
   speed: 150
 --- !u!114 &608719432
 MonoBehaviour:
@@ -3446,7 +3448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4116796560
+  GlobalObjectIdHash: 3387087799
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1

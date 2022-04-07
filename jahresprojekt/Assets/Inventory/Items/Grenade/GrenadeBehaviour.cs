@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ public class GrenadeBehaviour : MonoBehaviour
 {
     Rigidbody2D rb;
     
-    private float delay = 2;
+    private float delay = 2f;
     
     [SerializeField] float speed = 5f;
 
@@ -18,23 +19,36 @@ public class GrenadeBehaviour : MonoBehaviour
 
     [SerializeField] GameObject explosion;
 
+    [SerializeField] AudioClip sound;
+
+    [SerializeField] float volume = 0.75f;
+
     List<GameObject> collidedWith = new List<GameObject>();
 
-    void Start()
+    void Awake()
     {
         rb = this.GetComponent<Rigidbody2D>();
 
-        //Set initial speed
         rb.velocity = transform.right * speed;
 
         Physics2D.IgnoreCollision(this.GetComponent<CircleCollider2D>(), player.GetComponentInChildren<PolygonCollider2D>());
+
+        AudioSource.PlayClipAtPoint(sound, this.transform.position, volume);
     }
+
 
     void FixedUpdate()
     {
         Move();
 
         DestroyBelowLevel();
+    }
+
+    public void SetSpeed(Vector3 destination)
+    {
+        Vector3 difference = destination - this.transform.position;
+
+        rb.velocity = difference * speed;
     }
 
     private void Move()
@@ -66,14 +80,22 @@ public class GrenadeBehaviour : MonoBehaviour
 
         //TODO: implement grenade explodinng after a delay
         
-        if (collision.gameObject.tag == "ground")
-        {
-            Destroy(this.gameObject, 1f);
-        }
-        else 
-        {
-            Explode(collision);
-        }
+        //if (collision.gameObject.tag == "ground")
+        //{
+        //    Destroy(this.gameObject, 1f);
+        //}
+        //else 
+        //{
+        //    Explode(collision);
+        //}
+
+        StartCoroutine(Exploding(collision));
+    }
+
+    IEnumerator Exploding(Collision2D collision)
+    {
+        yield return new WaitForSeconds(1f);
+        Explode(collision);
     }
 
     void DoDamage(Collision2D collision)
@@ -107,6 +129,6 @@ public class GrenadeBehaviour : MonoBehaviour
         }
         
         //Destroy grenade
-        Destroy(this.gameObject, delay);
+        Destroy(this.gameObject);
     }
 }

@@ -1594,6 +1594,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lr: {fileID: 5775929445775506296}
+  colorReady: {r: 1, g: 1, b: 1, a: 0}
+  colorStandby: {r: 1, g: 0.32622603, b: 0.2783019, a: 0}
 --- !u!1 &5032029334220118255
 GameObject:
   m_ObjectHideFlags: 0

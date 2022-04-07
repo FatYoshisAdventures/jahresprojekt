@@ -5,10 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Grenade", menuName = "Inventory System/Item/Grenade")]
 public class Grenade : Item
 {
-    public GameObject rocket;
+    public GameObject grenade;
 
-    public override void Use(Transform t, Vector3 destination)
+    public override void Use(Transform origin, Vector3 destination)
     {
-        Instantiate(rocket, t.position, t.rotation);
+        GameObject g = Instantiate(grenade, origin.position, origin.rotation) as GameObject;
+        g.GetComponent<GrenadeBehaviour>().SetSpeed(destination);
     }
 }

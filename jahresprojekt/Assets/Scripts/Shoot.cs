@@ -31,6 +31,11 @@ public class Shoot : NetworkBehaviour
         //return if not owner
         if (!this.GetComponentInParent<NetworkObject>().IsOwner) return;
 
+        if (Input.GetMouseButtonUp(0))
+        {
+            tl.EndLine();
+        }
+
         //return if on ui-element
         if (EventSystem.current.IsPointerOverGameObject()) return;
 
@@ -42,29 +47,27 @@ public class Shoot : NetworkBehaviour
         {
             Vector3 currentPoint = camera.ScreenToWorldPoint(Input.mousePosition);
             currentPoint.z = 15;
-            tl.RenderLine(this.transform.position, currentPoint);
+            tl.RenderLine(this.transform.position, currentPoint, reloaded);
             //Debug.Log(this.transform.position + " " + currentPoint);
         }
         
         //on leaving left click
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && reloaded)
         {
-            tl.EndLine();
-
-            if (!reloaded) return;
-
-            StartCoroutine(shooting());
-            StartCoroutine(reload());
+            StartCoroutine(Shooting());
+            StartCoroutine(Reload());
         }
     }
 
-    IEnumerator shooting()
+    IEnumerator Shooting()
     {
+        Vector3 destination = camera.ScreenToWorldPoint(Input.mousePosition);
+
         yield return new WaitForSeconds(delay);
-        activeItem.item.Use(this.transform, camera.ScreenToWorldPoint(Input.mousePosition));
+        activeItem.item.Use(this.transform, destination);
     }
 
-    IEnumerator reload()
+    IEnumerator Reload()
     {
         reloaded = false;
         yield return new WaitForSeconds(reloadtime + delay);

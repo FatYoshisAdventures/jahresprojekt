@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Grenade
   icon: {fileID: 21300000, guid: dcc7d13869f407649891feb988aca65f, type: 3}
-  rocket: {fileID: 1226126544528451392, guid: 2309dafa8bc0b4a44a314ec8101a9516, type: 3}
+  grenade: {fileID: 1226126544528451392, guid: 2309dafa8bc0b4a44a314ec8101a9516, type: 3}

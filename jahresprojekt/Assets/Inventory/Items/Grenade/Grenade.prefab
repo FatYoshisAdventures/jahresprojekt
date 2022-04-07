@@ -120,11 +120,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 310f56b46ff4dc746997a62a9b153956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 22.83
+  speed: 2
   explosionradius: 1
   explosionforce: 100
   player: {fileID: 3953952999719630417, guid: 745d1680dc97c7f4787de7bf048acd34, type: 3}
   explosion: {fileID: 7121804981578898042, guid: 22ca2919aa361454296a75859bb7cb1f, type: 3}
+  sound: {fileID: 8300000, guid: 70610d83a682cb3419124dec27a6ec5f, type: 3}
+  volume: 0.75
 --- !u!58 &9076677034857931338
 CircleCollider2D:
   m_ObjectHideFlags: 0
