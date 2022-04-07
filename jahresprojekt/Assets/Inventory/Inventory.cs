@@ -28,19 +28,14 @@ public class Inventory : ScriptableObject
         {
             Items.Add(item);
 
-            if (onItemChangedCallback != null)
-            {
-                onItemChangedCallback.Invoke();
-            }
+            onItemChangedCallback?.Invoke();
         }
     }
 
     public void RemoveItem(Item item) 
     {
-        Items.Remove(item); 
-        if (onItemChangedCallback != null)
-        {
-            onItemChangedCallback.Invoke();
-        }
+        Items.Remove(item);
+
+        onItemChangedCallback?.Invoke();
     }
 }

@@ -8,6 +8,9 @@ public class InventorySlot : MonoBehaviour
 
     Item item;
 
+    public delegate void OnItemSelected(Item item);
+    public OnItemSelected onItemSelectedCallback;
+
     public void AddItem(Item newItem)
     {
         item = newItem;
@@ -28,5 +31,10 @@ public class InventorySlot : MonoBehaviour
         {
             item.Use();
         }
+    }
+
+    public void SelectItem()
+    {
+        onItemSelectedCallback?.Invoke(this.item);
     }
 }
