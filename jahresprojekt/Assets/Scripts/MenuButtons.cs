@@ -22,12 +22,16 @@ public class MenuButtons : MonoBehaviour
     public void join()
     {
         PlayerPrefs.SetInt("host", 0);
-        if (!checkIP(input.GetComponent<TMP_InputField>().text))
+        if (string.IsNullOrWhiteSpace(input.GetComponent<TMP_InputField>().text) || string.IsNullOrEmpty(input.GetComponent<TMP_InputField>().text))
+        {
+            //string null use local address
+        }
+        else if (!checkIP(input.GetComponent<TMP_InputField>().text))
         {
             //no valid ip address entered
             return;
         }
-        
+
         PlayerPrefs.SetString("ip", input.GetComponent<TMP_InputField>().text);
         Debug.Log(input.GetComponent<TMP_InputField>().text);
         //add checks for ip e.g 4 point every value between 0 and 255

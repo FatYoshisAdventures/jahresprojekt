@@ -15,18 +15,14 @@ public class Health : NetworkBehaviour
     public NetworkVariable<int> health
     {
         get { return _Health; }
-        set {
+        set
+        {
             if (IsServer)
             {
                 if (value.Value <= 0)
                 {
-                    GameObject.Destroy(this.gameObject, 0);
-                    //Instatniate corpse
-                    if (gameObject.tag.Equals("Player"))
-                    {
-                        //Finds animator on player death to kill player
-                        FindObjectOfType<Canvas>().GetComponent<Animator>().SetTrigger("Dead");
-                    }
+                    //plays animation for client, deletes gameobject on clients and server
+                    onDeathClientRpc();
                 }
                 else
                 {
@@ -34,13 +30,34 @@ public class Health : NetworkBehaviour
                     _Health = new NetworkVariable<int>(Mathf.Clamp(value.Value, 0, maxhealth));
                 }
             }
-        } 
+        }
 
     }
 
     void Start()
     {
-        health = new NetworkVariable<int>(maxhealth);
+        if (IsOwner)
+        {
+            RegenerateHealthServerRpc(maxhealth);
+        }
+        //health = new NetworkVariable<int>(maxhealth);
+    }
+
+    [ClientRpc]
+    void onDeathClientRpc()
+    {
+        if (gameObject.tag.Equals("Player") && IsOwner)
+        {
+            //Finds animator on player death to kill player
+            FindObjectOfType<Canvas>().GetComponent<Animator>().SetTrigger("Dead");
+        }
+        GameObject.Destroy(this.gameObject, 0);
+    }
+
+    [ServerRpc(Delivery = RpcDelivery.Reliable, RequireOwnership = false)]
+    public void DestroyGameObjectServerRpc(int amount)
+    {
+        GameObject.Destroy(this.gameObject, 0);
     }
 
     /// <summary>
@@ -48,16 +65,16 @@ public class Health : NetworkBehaviour
     /// </summary>
     /// <param name="amount"></param>
     /// <returns>returns false if health is already full</returns>
-    [ServerRpc]
+    [ServerRpc(Delivery = RpcDelivery.Reliable, RequireOwnership = false)]
     public void RegenerateHealthServerRpc(int amount)
     {
         if (health.Value != maxhealth)
         {
-            health = new NetworkVariable<int>(health.Value+ amount);
+            health = new NetworkVariable<int>(health.Value + amount);
         }
     }
 
-    [ServerRpc]
+    [ServerRpc(Delivery = RpcDelivery.Reliable, RequireOwnership = false)]
     public void IncreaseMaxHealthServerRpc(int increaseamount)
     {
         maxhealth += increaseamount;
@@ -67,7 +84,7 @@ public class Health : NetworkBehaviour
         }
     }
 
-    [ServerRpc]
+    [ServerRpc(Delivery = RpcDelivery.Reliable, RequireOwnership = false)]
     public void DoDamageServerRpc(int damage)
     {
         health = new NetworkVariable<int>(health.Value - damage);

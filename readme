@@ -1,0 +1,4 @@
+Bitte starten Sie das Program so, dass sie einen seperaten Build im Join modus und den Unity Editor im Host Modus starten!
+
+Es existiert ein Bug der zwei Inventorys übereinander legt, dies führt leider zu Problemen am Host, der Bug wurde bereits gefixed diese Lösung hat aber andere Teile des
+Projektes nicht nutzbar gemacht.

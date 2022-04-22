@@ -10,13 +10,9 @@ public class Rocket : Item
 
     public override void Use(Vector3 originpos, Quaternion originrot, Vector3 destination, ulong clientid)
     {
-        Debug.Log("test");
         //creates rocket on server
         CreateRocketServerRpc(originpos, originrot, destination, clientid);
 
-        //creates rocket on client
-        //GameObject r = Instantiate(rocket, origin.position, origin.rotation) as GameObject;
-        //r.GetComponent<RocketBehaviour>().SetSpeed(destination);
     }
 
     [ServerRpc(Delivery = RpcDelivery.Reliable, RequireOwnership = false)]

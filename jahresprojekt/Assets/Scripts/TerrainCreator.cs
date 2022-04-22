@@ -45,7 +45,7 @@ public class TerrainCreator : NetworkBehaviour
                 string ip = PlayerPrefs.GetString("ip");
                 if (ip == "") ip = "127.0.0.1";
                 manager.gameObject.GetComponent<UNetTransport>().ConnectAddress = ip;
-                
+
                 manager.StartClient();
                 StartCoroutine(wait());
                 //GetShapeYValuesServerRpc();

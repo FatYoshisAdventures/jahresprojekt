@@ -92,8 +92,8 @@ public class RocketBehaviour : NetworkBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player") return;
-        
+        if (collision.gameObject.tag == "Player" && (collision.gameObject.GetComponentInParent<NetworkBehaviour>().OwnerClientId == gameObject.GetComponent<NetworkBehaviour>().OwnerClientId)) return;
+
         if (collidedWith.Contains(collision.gameObject)) return;
         collidedWith.Add(collision.gameObject);
 

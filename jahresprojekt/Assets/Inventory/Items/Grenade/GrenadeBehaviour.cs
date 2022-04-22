@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class GrenadeBehaviour : MonoBehaviour
@@ -73,13 +74,14 @@ public class GrenadeBehaviour : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player") return;
-        
+        if (collision.gameObject.tag == "Player" && (collision.gameObject.GetComponentInParent<NetworkBehaviour>().OwnerClientId == gameObject.GetComponent<NetworkBehaviour>().OwnerClientId)) return;
+
+
         if (collidedWith.Contains(collision.gameObject)) return;
         collidedWith.Add(collision.gameObject);
 
         //TODO: implement grenade explodinng after a delay
-        
+
         //if (collision.gameObject.tag == "ground")
         //{
         //    Destroy(this.gameObject, 1f);
